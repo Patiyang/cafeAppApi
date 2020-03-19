@@ -59,6 +59,7 @@ class Users
         $stmt->bindParam(':firstName', $this->firstName);
         $stmt->bindParam(':lastName', $this->lastName);
         $stmt->bindParam(':phoneNumber', $this->phoneNumber);
+        // $stmt->bindParam(':password', $this->password);
 
         $password_hash = password_hash($this->password, PASSWORD_BCRYPT);
         $stmt->bindParam(':password', $password_hash);

@@ -16,7 +16,7 @@ $contacts = new Contacts($db);
 // get posted data
 $contact = json_decode(file_get_contents("php://input"));
 
-$contacts->contact = $contact->contact;
+$contacts->contact = $contact->phoneNumber;
 if (
     !empty($contacts->contact) && 
      $contacts->createContact()

@@ -17,7 +17,7 @@ $user = new Users($db);
 $data = json_decode(file_get_contents("php://input"));
 $user->userName = $data->userName;
 
-$userExists= $user->userExists();
+$userExists = $user->userExists();
 
 // generate json web token
 include_once '../config/core.php';
@@ -39,7 +39,8 @@ if ($userExists &&  password_verify($data->password, $user->password)) {
             "id" => $user->id,
             "firstName" => $user->firstName,
             "lastName" => $user->lastName,
-            "userName" => $user->userName
+            "userName" => $user->userName,
+
         )
     );
 
@@ -50,7 +51,9 @@ if ($userExists &&  password_verify($data->password, $user->password)) {
     echo json_encode(
         array(
             "message" => "Successful login.",
-            "jwt" => $jwt
+            "jwt" => $jwt,
+            "userName" => $user->userName, 
+            "password" => $user->password
         )
     );
 } else {
