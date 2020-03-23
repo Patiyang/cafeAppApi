@@ -18,6 +18,8 @@ class Contacts
         return $stmt;
     }
 
+
+
     function readOneContact()
     {
         $query = "SELECT * FROM " . $this->tableName . " WHERE id = ? LIMIT 0,1";
@@ -32,15 +34,65 @@ class Contacts
         $this->contact = $row['contact'];
     }
 
-    function createContact(){
+    function createContact()
+    {
         $query = "INSERT INTO " . $this->tableName . " SET contact = :contact";
 
         $stmt = $this->conn->prepare($query);
         $this->contact = htmlspecialchars(strip_tags($this->contact));
 
-        $stmt->bindParam(':contact',$this->contact);
-        if($stmt->execute()){
+        $stmt->bindParam(':contact', $this->contact);
+        if ($stmt->execute()) {
             return true;
-        }return false;
+        }
+        return false;
+    }
+}
+
+
+class RegisterdContacts
+{
+    private $conn;
+    private $tableName = 'registration';
+
+    public $phone;
+    public $contact;
+    public function __construct($db)
+    {
+        $this->conn = $db;
+    }
+    function readRegistered()
+    {
+        // $query = "SELECT * FROM " . $this->tableName;
+        $query="SELECT * FROM " . $this->tableName;
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
+
+    function readFormOne(){
+        $query="SELECT * FROM " . $this->tableName . " WHERE CURRENT_FORM = 'Form1'";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
+
+    function readFormTwo(){
+        $query="SELECT * FROM " . $this->tableName . " WHERE CURRENT_FORM = 'Form2'";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
+    function readFormThree(){
+        $query="SELECT * FROM " . $this->tableName . " WHERE CURRENT_FORM = 'Form3'";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
+    function readFormFour(){
+        $query="SELECT * FROM " . $this->tableName . " WHERE CURRENT_FORM = 'Form4'";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
     }
 }
