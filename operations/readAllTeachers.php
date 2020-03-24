@@ -21,7 +21,7 @@ if ($num > 0) {
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         extract($row);
         $contacts_item = array(
-            "firstname" => $FIRST_NAME,
+            "firstName" => $FIRST_NAME,
             "lastName" => $SECOND_NAME,
             "phone" => $PHONE
         );
