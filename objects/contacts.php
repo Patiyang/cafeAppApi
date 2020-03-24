@@ -99,13 +99,27 @@ class RegisterdContacts
 class Teachers{
     private $conn;
     private $tableName = 'teacherregistration';
-
-    public $phone;
     public function __construct($db)
     {
         $this->conn = $db;
     }
     function readTeachers()
+    {
+        $query="SELECT * FROM " . $this->tableName;
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
+}
+
+class SubOrdinate{
+    private $conn;
+    private $tableName = 'subregistration';
+    public function __construct($db)
+    {
+        $this->conn = $db;
+    }
+    function readSubordinate()
     {
         $query="SELECT * FROM " . $this->tableName;
         $stmt = $this->conn->prepare($query);
