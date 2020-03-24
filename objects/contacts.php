@@ -63,7 +63,6 @@ class RegisterdContacts
     }
     function readRegistered()
     {
-        // $query = "SELECT * FROM " . $this->tableName;
         $query="SELECT * FROM " . $this->tableName;
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
