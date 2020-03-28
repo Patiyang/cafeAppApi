@@ -9,7 +9,7 @@ class Streams{
     }
     function readTeachers()
     {
-        $query="SELECT * FROM " . $this->tableName;
+        $query="SELECT * FROM studentstreams CROSS JOIN studentclass" ;
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         return $stmt;

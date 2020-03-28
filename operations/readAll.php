@@ -21,10 +21,12 @@ if ($num > 0) {
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         extract($row);
         $contacts_item = array(
-            "form" => $CURRENT_FORM,
-            "fatherphone" => $FATHERS_PHONE,
+            "form" => $row['CURRENT FORM'],
+            "fatherphone" => $row['FATHERS PHONE'],
             "motherphone" => $motherphone,
             "guardianphone" => $guardianphone,
+            "stream"=>$STREAM,
+            "Admission"=>$row['ADM NO']
         );
         array_push($contacts_array['contacts'], $contacts_item);
     }

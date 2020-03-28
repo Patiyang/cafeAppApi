@@ -21,7 +21,7 @@ if ($num > 0) {
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         extract($row);
         $streams_item = array(
-            "StreamName" => $stream,
+            "streamName" =>$class." ".$stream,
         );
         array_push($streams_array['streams'], $streams_item);
     }

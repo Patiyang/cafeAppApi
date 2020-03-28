@@ -22,7 +22,6 @@ if ($num > 0) {
         extract($row);
         $streams_item = array(
             "className" => $class,
-            "no"=>$no
         );
         array_push($streams_array['classes'], $streams_item);
     }
