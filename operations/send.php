@@ -1,6 +1,6 @@
 <?php 
-$phone=$_POST['function'];
-$message=$_POST['StringPassed'];
+$phone=$_POST['phone'];
+$message=$_POST['message'];
 // $phone="+254703445254,+254792028744";
 // $message="Hello";
 $response['success'] = false;

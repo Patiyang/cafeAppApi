@@ -20,7 +20,8 @@ if(isset($_POST['submit'])){
     require_once('AfricasTalkingGateway.php');
     // Specify your login credentials
     $username   = "irene_g";
-    $apikey     = "0d6a3c864882d630409e41d6e9637fd10f9293b49a3c1fcd2768aa3342e8256b";
+    // $apikey     = "0d6a3c864882d630409e41d6e9637fd10f9293b49a3c1fcd2768aa3342e8256b";
+    $apikey= '67dde14339fe7d3b56335ad8fc2ee58a78967bde0c03a64d4571faa5d263e30d';
     // NOTE: If connecting to the sandbox, please use your sandbox login credentials
     // Specify the numbers that you want to send to in a comma-separated list
     // Please ensure you include the country code (+254 for Kenya in this case)
