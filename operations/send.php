@@ -10,18 +10,18 @@ $phone = $data['phone'];
 $message = $data['message'];
 $apikey = $data['apiKey']; //changed
 $smsId = $data['smsId']; //changed
-// $phone="+254703445254,+254792028744";
+// $phone="+254723942008";
 // $message="Hello";
 $response['success'] = false;
 require_once('AfricasTalkingGateway.php');
-$username   = "AKITHIGIRLS";
+// $username   = "AKITHIGIRLS";
 // $apikey     = "ac5a9bc4da85f5f8a8c1461528b95a9f95d82aad17a68edd1dc9c158bcbe2187";
 
 $recipients = $phone;
 $message    = $message;
-$gateway    = new AfricasTalkingGateway($username, $apikey);
+$gateway    = new AfricasTalkingGateway($smsId, $apikey);
 try {
-  $results = $gateway->sendMessage($recipients, $message, "AKITHIGIRLS");
+  $results = $gateway->sendMessage($recipients, $message, $smsId);
 
   foreach ($results as $result) {
   }
@@ -30,5 +30,5 @@ try {
   echo json_encode(array("message" => "Sent"));
 } catch (AfricasTalkingGatewayException $e) {
   http_response_code(400);
-  echo json_encode(array("message" => "Failed"));
+  echo json_encode(array("message" => "Failed" . $e->getMessage()));
 }
