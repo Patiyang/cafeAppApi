@@ -23,9 +23,9 @@ class WalgotechDB
     }
 }
 
-class IreneDB{
+class SchoolDB{
     private $host = "localhost";
-    private $db_name = "irene";
+    private $db_name = "school";
     private $username = "root";
     private $password = "";
     public $conn;

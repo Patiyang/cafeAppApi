@@ -6,7 +6,7 @@ header("Content-Type: application/json; charset=UTF-8");
 include_once '../config/database.php';
 include_once '../objects/classes.php';
 
-$database = new IreneDB();
+$database = new SchoolDB();
 $db = $database->getConnection();
 
 $streams = new Streams($db);
@@ -29,5 +29,5 @@ if ($num > 0) {
     echo json_encode($streams_array);
 } else {
     http_response_code(404);
-    echo json_encode(array("message" => "no user found."));
+    echo json_encode(array("message" => "no streams found."));
 }

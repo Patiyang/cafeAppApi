@@ -6,7 +6,7 @@ header("Content-Type: application/json; charset=UTF-8");
 include_once '../config/database.php';
 include_once '../objects/classes.php';
 
-$database = new IreneDB();
+$database = new SchoolDB();
 $db = $database->getConnection();
 
 $classes = new Classes($db);
@@ -22,6 +22,7 @@ if ($num > 0) {
         extract($row);
         $streams_item = array(
             "className" => $class,
+            "no"=>$no
         );
         array_push($streams_array['classes'], $streams_item);
     }

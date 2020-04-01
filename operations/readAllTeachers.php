@@ -6,7 +6,7 @@ header("Content-Type: application/json; charset=UTF-8");
 include_once '../config/database.php';
 include_once '../objects/contacts.php';
 
-$database = new IreneDB();
+$database = new SchoolDB();
 $db = $database->getConnection();
 
 $contacts = new Teachers($db);
@@ -21,9 +21,9 @@ if ($num > 0) {
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         extract($row);
         $contacts_item = array(
-            "firstName" => $FIRST_NAME,
-            "lastName" => $SECOND_NAME,
-            "phone" => $PHONE
+            "firstName" => $row["FIRST NAME"],
+            "lastName" => $row["SECOND NAME"],
+            "phone" => $row["PHONE NU"]
         );
         array_push($contacts_array['teachers'], $contacts_item);
     }

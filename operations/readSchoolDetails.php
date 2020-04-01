@@ -6,7 +6,7 @@ header("Content-Type: application/json; charset=UTF-8");
 include_once '../config/database.php';
 include_once '../objects/schoolDetails.php';
 
-$database = new IreneDB();
+$database = new SchoolDB();
 $db = $database->getConnection();
 
 $details = new SchoolDetails($db);
