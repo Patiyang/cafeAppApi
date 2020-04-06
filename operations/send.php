@@ -8,20 +8,20 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 $data = json_decode(file_get_contents('php://input'), true);
 $phone = $data['phone'];
 $message = $data['message'];
-$apikey = $data['apiKey']; //changed
-$smsId = $data['smsId']; //changed
+// $apiKey = $data['apiKey']; //changed
+// $username = $data['username']; //changed
 // $phone="+254723942008";
 // $message="Hello";
 $response['success'] = false;
 require_once('AfricasTalkingGateway.php');
-// $username   = "AKITHIGIRLS";
-// $apikey     = "ac5a9bc4da85f5f8a8c1461528b95a9f95d82aad17a68edd1dc9c158bcbe2187";
+$username   = "mgpatto";
+$apiKey     = "0e33d3656655659ffcde61e3b34b215f930a9905d3548d897b4504b2b679c1a5";
 
 $recipients = $phone;
 $message    = $message;
-$gateway    = new AfricasTalkingGateway($smsId, $apikey);
+$gateway    = new AfricasTalkingGateway($username, $apiKey);
 try {
-  $results = $gateway->sendMessage($recipients, $message, $smsId);
+  $results = $gateway->sendMessage($recipients, $message);
 
   foreach ($results as $result) {
   }
@@ -30,5 +30,5 @@ try {
   echo json_encode(array("message" => "Sent"));
 } catch (AfricasTalkingGatewayException $e) {
   http_response_code(400);
-  echo json_encode(array("message" => "Failed" . $e->getMessage()));
+  echo json_encode(array("message" => "Failed " . $e->getMessage()));
 }

@@ -69,31 +69,6 @@ class RegisterdContacts
         return $stmt;
     }
 
-    function readFormOne(){
-        $query="SELECT * FROM " . $this->tableName . " WHERE CURRENT_FORM = 'Form1'";
-        $stmt = $this->conn->prepare($query);
-        $stmt->execute();
-        return $stmt;
-    }
-
-    function readFormTwo(){
-        $query="SELECT * FROM " . $this->tableName . " WHERE CURRENT_FORM = 'Form2'";
-        $stmt = $this->conn->prepare($query);
-        $stmt->execute();
-        return $stmt;
-    }
-    function readFormThree(){
-        $query="SELECT * FROM " . $this->tableName . " WHERE CURRENT_FORM = 'Form3'";
-        $stmt = $this->conn->prepare($query);
-        $stmt->execute();
-        return $stmt;
-    }
-    function readFormFour(){
-        $query="SELECT * FROM " . $this->tableName . " WHERE CURRENT_FORM = 'Form4'";
-        $stmt = $this->conn->prepare($query);
-        $stmt->execute();
-        return $stmt;
-    }
 }
 
 class Teachers{
