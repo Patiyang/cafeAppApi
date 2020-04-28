@@ -27,7 +27,7 @@ if ($num > 0) {
             "guardianphone" => $guardianphone,
             "stream"=>$STREAM,
             "Admission"=>$row['ADM NO'],
-            "Name"=>$row['FIRST NAME'] ." ". $row['SECOND NAME']
+            "studentName"=>$row['FIRST NAME'] ." ". $row['SECOND NAME']
         );
         array_push($contacts_array['contacts'], $contacts_item);
     }
