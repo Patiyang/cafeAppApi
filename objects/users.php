@@ -41,9 +41,8 @@ class Users
 
     function create()
     {
-        $query = "INSERT INTO " . $this->tableName . " 
-                    SET 
-                        owner_name = :owner_name, owner_pass = :owner_pass, owner_email = :owner_email, owner_mob = :owner_mob";
+        $query = "INSERT INTO " . $this->tableName . " (owner_name,owner_pass,owner_email,owner_mob) VALUES ()";
+                        
 
         $stmt = $this->conn->prepare($query);
 
