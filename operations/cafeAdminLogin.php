@@ -8,7 +8,7 @@ include_once '../config/database.php';
 include_once '../objects/users.php';
 
 // get database connection
-$database = new WalgotechDB();
+$database = new CafeDB();
 $db = $database->getConnection();
 
 // instantiate user object
