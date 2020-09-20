@@ -28,13 +28,13 @@ if (
     $user->cafe_name = "";
     $user->owner_upi = "";
     $user->location = "";
-    $user->cafe_cost = "";
+    $user->cafe_cost = 0;
     $user->description = "";
-    $user->service_area = "";
+    $user->service_area = 0;
     $user->facilities = "";
     $user->primary_image = "";
     $user->secondary = "";
-    $user->status = "";
+    $user->status = 0;
 
     if ($user->create()) {
         http_response_code(201);
