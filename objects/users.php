@@ -59,11 +59,13 @@ class Users
 
     function create()
     {
+
         $query = "INSERT INTO " . $this->tableName . " 
                     SET 
                         owner_name = :owner_name, owner_pass = :owner_pass, owner_email = :owner_email, owner_mob = :owner_mob, cafe_name = :cafe_name, owner_upi = :owner_upi, location = :location";
 
-                        // , cafe_name = :cafe_name, owner_upi = :owner_upi, location = :location, cafe_cost = :cafe_cost, description = :description, service_area = :service_area, facilities = :facilities, primary_image = :primary_image, secondary = :secondary, status = :status
+
+        // , cafe_name = :cafe_name, owner_upi = :owner_upi, location = :location, cafe_cost = :cafe_cost, description = :description, service_area = :service_area, facilities = :facilities, primary_image = :primary_image, secondary = :secondary, status = :status
         $stmt = $this->conn->prepare($query);
 
         $this->owner_name = htmlspecialchars(strip_tags($this->owner_name));
