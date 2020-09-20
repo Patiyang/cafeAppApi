@@ -21,13 +21,23 @@ if (
     !empty($userData->owner_mob) &&
     !empty($userData->owner_email)
 ) {
-    $user->firstName = $userData->owner_name;
-    $user->password = $userData->owner_pass;
-    $user->email = $userData->owner_email;
-    $user->phoneNumber = $userData->owner_mob;
+    $user->owner_name = $userData->owner_name;
+    $user->owner_pass = $userData->owner_pass;
+    $user->owner_email = $userData->owner_email;
+    $user->owner_mob = $userData->owner_mob;
+    $user->cafe_name = "";
+    $user->owner_upi = "";
+    $user->location = "";
+    $user->cafe_cost = "";
+    $user->description = "";
+    $user->service_area = "";
+    $user->facilities = "";
+    $user->primary_image = "";
+    $user->secondary = "";
+    $user->status = "";
 
     if ($user->create()) {
-        http_response_code(200);
+        http_response_code(201);
         echo json_encode(array("message" => "User was created."));
     } else {
         http_response_code(503);

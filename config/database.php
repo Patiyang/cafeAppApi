@@ -1,24 +1,22 @@
 <?php
-class CafeDB
-{
-
-    // specify your own database credentials
+class CafeDb{
     private $host = "localhost";
     private $db_name = "cafe";
     private $username = "root";
     private $password = "";
     public $conn;
-
-    public function getConnection()
-    {
+  
+    public function getConnection(){
+  
         $this->conn = null;
-
-        try {
+  
+        try{
             $this->conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->db_name, $this->username, $this->password);
-        } catch (PDOException $exception) {
+            $this->conn->exec("set names utf8");
+        }catch(PDOException $exception){
             echo "Connection error: " . $exception->getMessage();
         }
-
+  
         return $this->conn;
     }
 }
