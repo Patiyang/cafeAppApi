@@ -15,7 +15,7 @@ $db = $database->getConnection();
 $user = new Users($db);
 
 $data = json_decode(file_get_contents("php://input"));
-$user->userName = $data->userName;
+$user->owner_email = $data->owner_email;
 
 $userExists = $user->userExists();
 
@@ -29,18 +29,18 @@ include_once '../vendor/firebase/php-jwt/src/JWT.php';
 use \Firebase\JWT\JWT;
 
 //generation of apiKey for app
-if ($userExists &&  password_verify($data->password, $user->password)) {
+if ($userExists &&  password_verify($data->owner_pass, $user->owner_pass)) {
     $token = array(
         "iss" => $iss,
         "aud" => $aud,
         "iat" => $iat,
         "nbf" => $nbf,
         "data" => array(
-            "id" => $user->id,
-            "firstName" => $user->firstName,
-            "lastName" => $user->lastName,
-            "userName" => $user->userName,
-
+            "id" => $user->cafe_id,
+            "userName" => $user->owner_name,
+            "email" => $user->owner_email,
+            "password" => $user->owner_pass,
+            "phoneNumber" => $user->owner_mob,
         )
     );
 
@@ -52,8 +52,8 @@ if ($userExists &&  password_verify($data->password, $user->password)) {
         array(
             "message" => "Successful login.",
             "jwt" => $jwt,
-            "userName" => $user->userName, 
-            "password" => $user->password
+            "email" => $user->owner_email,
+            "names" => $user->owner_name
         )
     );
 } else {

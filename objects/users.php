@@ -4,6 +4,7 @@ class Users
     private $conn;
     private $tableName = 'cafe';
 
+    public $cafe_id;
     public $owner_name;
     public $owner_pass;
     public $owner_email;
@@ -33,14 +34,14 @@ class Users
 
     function readOne()
     {
-        $query = "SELECT * FROM " . $this->tableName . " WHERE id = ? LIMIT 0,1";
+        $query = "SELECT * FROM " . $this->tableName . " WHERE cafe_id = ? LIMIT 0,1";
         $stmt = $this->conn->prepare($query);
 
-        $stmt->bindParam(1, $this->id);
+        $stmt->bindParam(1, $this->cafe_id);
         $stmt->execute();
 
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
+        $this->cafe_id = $row['cafe_id'];
         $this->owner_name = $row['owner_name'];
         $this->owner_pass = $row['owner_pass'];
         $this->owner_email = $row['owner_email'];
@@ -103,18 +104,47 @@ class Users
         return false;
     }
 
+    function update()
+    {
+
+
+        $query = "UPDATE
+                    " . $this->tableName . "
+                SET owner_name = :owner_name, owner_mob = :owner_mob, owner_upi = :owner_upi WHERE owner_email = :owner_email";
+        $stmt = $this->conn->prepare($query);
+
+        // sanitize the data
+        $this->owner_name = htmlspecialchars(strip_tags($this->owner_name));
+        $this->owner_email = htmlspecialchars(strip_tags($this->owner_email));
+        $this->owner_upi = htmlspecialchars(strip_tags($this->owner_upi));
+        $this->owner_mob = htmlspecialchars(strip_tags($this->owner_mob));
+
+        // new user values go here
+        $stmt->bindParam(':owner_name', $this->owner_name);
+        $stmt->bindParam(':owner_mob', $this->owner_mob);
+        $stmt->bindParam(':owner_upi', $this->owner_upi);
+        $stmt->bindParam(':owner_email', $this->owner_email);
+
+        // $stmt->bindParam(':cafe_id', $this->cafe_id);
+
+        if ($stmt->execute()) {
+            return true;
+        }
+        return false;
+    }
+
     function userExists()
     {
-        $query = "SELECT id, userName, password, firstName, lastName, phoneNumber
+        $query = "SELECT cafe_id, owner_name, owner_pass, owner_mob, owner_email
         FROM " . $this->tableName . "
-        WHERE userName = ?
+        WHERE owner_email = ?
         LIMIT 0,1";
 
         $stmt = $this->conn->prepare($query);
 
-        $this->userName = htmlspecialchars(strip_tags($this->userName));
+        $this->owner_email = htmlspecialchars(strip_tags($this->owner_email));
 
-        $stmt->bindParam(1, $this->userName);
+        $stmt->bindParam(1, $this->owner_email);
         $stmt->execute();
 
         $num = $stmt->rowCount();
@@ -122,16 +152,13 @@ class Users
         if ($num > 0) {
 
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
-            $this->id = $row['id'];
-            $this->userName = $row['userName'];
-            $this->password = $row['password'];
-            $this->firstName = $row['firstName'];
-            $this->lastName = $row['lastName'];
-            $this->firstName = $row['phoneNumber'];
+            $this->cafe_id = $row['cafe_id'];
+            $this->owner_name = $row['owner_name'];
+            $this->owner_pass = $row['owner_pass'];
+            $this->owner_mob = $row['owner_mob'];
+            $this->owner_email = $row['owner_email'];
             return true;
         }
-
-        // return false if email does not exist in the database
         return false;
     }
 }
