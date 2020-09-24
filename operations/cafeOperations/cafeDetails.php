@@ -7,13 +7,13 @@ header("Access-Control-Allow-Credentials: true");
 header('Content-Type: application/json');
   
 // include database and object files
-include_once '../config/database.php';
-include_once '../objects/users.php';
+include_once '../../config/database.php';
+include_once '../../objects/cafe.php';
   
 // get database connection
 $database = new CafeDB();
 $db = $database->getConnection();
-$details = new Users($db);
+$details = new CafeOwner($db);
   
 $details->cafe_id = isset($_GET['cafe_id']) ? $_GET['cafe_id'] : die();
   

@@ -6,8 +6,8 @@ header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 // get database connection
-include_once '../config/database.php';
-include_once '../objects/users.php';
+include_once '../../config/database.php';
+include_once '../../objects/users.php';
 
 $database = new CafeDB();
 $db = $database->getConnection();
@@ -16,25 +16,19 @@ $userData = json_decode(file_get_contents("php://input"));
 
 
 if (
-    !empty($userData->owner_name) &&
-    !empty($userData->owner_pass) &&
-    !empty($userData->owner_mob) &&
-    !empty($userData->owner_email)
+    !empty($userData->userName) &&
+    !empty($userData->password) &&
+    !empty($userData->phone) &&
+    !empty($userData->email)
 ) {
-    $user->owner_name = $userData->owner_name;
-    $user->owner_pass = $userData->owner_pass;
-    $user->owner_email = $userData->owner_email;
-    $user->owner_mob = $userData->owner_mob;
-    $user->cafe_name = "";
-    $user->owner_upi = "";
-    $user->location = "";
-    $user->cafe_cost = 0;
-    $user->description = "";
-    $user->service_area = 0;
-    $user->facilities = "";
-    $user->primary_image = "";
-    $user->secondary = "";
-    $user->status = 0;
+    $user->user_name = $userData->userName;
+    $user->password = $userData->password;
+    $user->user_email = $userData->email;
+    $user->user_mobile = $userData->phone;
+    $user->user_address = $userData->address;
+    $user->user_img = "";
+    // $user->user_addon = "";
+    $user->user_status = "0";
 
     if ($user->create()) {
         http_response_code(201);

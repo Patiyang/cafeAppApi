@@ -4,8 +4,8 @@ header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
-include_once '../config/database.php';
-include_once '../objects/users.php';
+include_once '../../config/database.php';
+include_once '../../objects/users.php';
 
 // get database connection
 $database = new CafeDB();
@@ -15,45 +15,45 @@ $db = $database->getConnection();
 $user = new Users($db);
 
 $data = json_decode(file_get_contents("php://input"));
-$user->owner_email = $data->owner_email;
+$user->user_email = $data->email;
 
 $userExists = $user->userExists();
 
 // generate json web token
-include_once '../config/core.php';
-include_once '../vendor/firebase/php-jwt/src/BeforeValidException.php';
-include_once '../vendor/firebase/php-jwt/src/ExpiredException.php';
-include_once '../vendor/firebase/php-jwt/src/SignatureInvalidException.php';
-include_once '../vendor/firebase/php-jwt/src/JWT.php';
+include_once '../../config/core.php';
+include_once '../../vendor/firebase/php-jwt/src/BeforeValidException.php';
+include_once '../../vendor/firebase/php-jwt/src/ExpiredException.php';
+include_once '../../vendor/firebase/php-jwt/src/SignatureInvalidException.php';
+include_once '../../vendor/firebase/php-jwt/src/JWT.php';
 
 use \Firebase\JWT\JWT;
 
 //generation of apiKey for app
-if ($userExists &&  password_verify($data->owner_pass, $user->owner_pass)) {
+if ($userExists &&  password_verify($data->password, $user->password)) {
     $token = array(
         "iss" => $iss,
         "aud" => $aud,
         "iat" => $iat,
         "nbf" => $nbf,
         "data" => array(
-            "id" => $user->cafe_id,
-            "userName" => $user->owner_name,
-            "email" => $user->owner_email,
-            "password" => $user->owner_pass,
-            "phoneNumber" => $user->owner_mob,
+            "id" => $user->user_id,
+            "userName" => $user->user_name,
+            "email" => $user->user_email,
+            "password" => $user->password,
+            "phoneNumber" => $user->user_mobile,
         )
     );
 
     http_response_code(200);
 
-    // generate jwt
+    // generate web token for verifying user is logged in
     $jwt = JWT::encode($token, $key);
     echo json_encode(
         array(
             "message" => "Successful login.",
             "jwt" => $jwt,
-            "email" => $user->owner_email,
-            "names" => $user->owner_name
+            "email" => $user->user_email,
+            "names" => $user->user_name
         )
     );
 } else {

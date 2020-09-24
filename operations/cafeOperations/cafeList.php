@@ -3,13 +3,13 @@
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 
-include_once '../config/database.php';
-include_once '../objects/users.php';
+include_once '../../config/database.php';
+include_once '../../objects/cafe.php';
 
 $database = new CafeDB();
 $db = $database->getConnection();
 
-$details = new Users($db);
+$details = new CafeOwner($db);
 
 // query users
 $stmt = $details->read();
@@ -30,15 +30,15 @@ if ($num > 0) {
             "password"=> $owner_pass,
             "emailAddress" => $owner_email,
             "mobilePhone" => $owner_mob,
-            "payment"=>"",
-            "location"=>"",
-            "cafe_cost"=>0,
-            "description"=>"",
-            "service_area"=>0,
-            "facilities"=>"",
-            "primary_image"=>"",
-            "secondary"=>"",
-            "status"=>0
+            "payment"=>$owner_upi,
+            "location"=>$location,
+            "cafe_cost"=>$cafe_cost,
+            "description"=>$description,
+            "service_area"=>$service_area,
+            "facilities"=>$facilities,
+            "primary_image"=>$primary_image,
+            "secondary"=>$primary_image,
+            "status"=>$primary_image
         );
 
         array_push($details_arr['users'], $details_item);
