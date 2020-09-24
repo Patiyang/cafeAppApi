@@ -21,11 +21,21 @@ $details->readOne();
   
 if($details->owner_name!=null){
     $details_arr = array(
-        "id" =>  $details->cafe_id,
+        "cafeid" =>  $details->cafe_id,
         "userName" => $details->owner_name,
         "password" => $details->owner_pass,
-        "phoneNumber" => $details->owner_mob,
         "email" => $details->owner_email,
+        "phoneNumber" => $details->owner_mob,
+        "payment" => $details->owner_upi,
+        "location" => $details->location,
+        "cafe_cost" => $details->cafe_cost,
+        "description" => $details->description,
+        "service_area" => $details->service_area,
+        "facilities" => $details->facilities,
+        "primary_image" => $details->primary_image,
+        "secondary" => $details->secondary,
+        "status" => $details->status
+        
     );
     http_response_code(200);
     echo json_encode($details_arr);
@@ -35,4 +45,3 @@ else{
     http_response_code(404);
     echo json_encode(array("message" => "user does not exist."));
 }
-?>

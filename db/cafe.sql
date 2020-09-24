@@ -88,16 +88,16 @@ CREATE TABLE IF NOT EXISTS `cafe` (
   `status` int(11) NOT NULL,
   PRIMARY KEY (`cafe_id`),
   UNIQUE KEY `owner_name` (`owner_name`,`owner_mob`,`owner_email`,`owner_upi`)
-) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `cafe`
 --
 
 
--- INSERT INTO `cafe` (`cafe_id`, `owner_name`, `owner_mob`, `owner_email`, `owner_pass`, `cafe_name`, `owner_upi`, `location`, `cafe_cost`, `description`, `service_area`, `facilities`, `primary_image`, `secondary`, `status`) VALUES
--- (1, 'kdjfsdjf', '9999999999', 'test@test.com', 'ehdksjhkfjdshfkh', 'NG,XNV', 'CKVN,CVN', ',VN,', 1, 'NV,', 1, 'Bike Parking,Car Parking,WIFI permises,Screen Projector,', '6882image-lorem-ipsum.png', '8419images.png', 0),
--- (2, 'mbgfsdb', '9999999999', 'test@test.com', 'djfsdjfbdb', 'jfgsdjg', 'jgnsdkj', 'kghsdkjhgkj', 1, 'fjsdfjb', 5, 'Bike Parking,Clean Wash rooms,Snooker,', '1723image-lorem-ipsum.png', '3444images.png', 0);
+INSERT INTO `cafe` (`cafe_id`, `owner_name`, `owner_mob`, `owner_email`, `owner_pass`, `cafe_name`, `owner_upi`, `location`, `cafe_cost`, `description`, `service_area`, `facilities`, `primary_image`, `secondary`, `status`) VALUES
+(1, 'kdjfsdjf', '9999999999', 'test@test.com', 'ehdksjhkfjdshfkh', 'NG,XNV', 'CKVN,CVN', ',VN,', 1, 'NV,', 1, 'Bike Parking,Car Parking,WIFI permises,Screen Projector,', '6882image-lorem-ipsum.png', '8419images.png', 0),
+(2, 'mbgfsdb', '9999999999', 'test@test.com', 'djfsdjfbdb', 'jfgsdjg', 'jgnsdkj', 'kghsdkjhgkj', 1, 'fjsdfjb', 5, 'Bike Parking,Clean Wash rooms,Snooker,', '1723image-lorem-ipsum.png', '3444images.png', 0);
 
 -- --------------------------------------------------------
 
@@ -234,10 +234,11 @@ CREATE TABLE IF NOT EXISTS `users` (
   `user_email` varchar(150) DEFAULT NULL,
   `user_img` varchar(300) DEFAULT NULL,
   `user_address` varchar(1000) NOT NULL,
-  `password` varchar(255) NOT NULL,
+  `password` varchar(1000) NOT NULL,
   `user_status` enum('0','1') DEFAULT NULL,
   `user_addon` datetime DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`user_id`)
+  PRIMARY KEY (`user_id`),
+  UNIQUE KEY `user_email` (`user_email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 COMMIT;
 
