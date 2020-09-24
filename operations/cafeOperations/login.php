@@ -49,7 +49,7 @@ if ($userExists &&  password_verify($data->owner_pass, $user->owner_pass)) {
     // generate web token for verifying user is logged in
     $jwt = JWT::encode($token, $key);
     echo json_encode(
-        array(
+        array( $user->owner_pass,
             "message" => "Successful login.",
             "jwt" => $jwt,
             "email" => $user->owner_email,
@@ -59,6 +59,7 @@ if ($userExists &&  password_verify($data->owner_pass, $user->owner_pass)) {
 } else {
     http_response_code(401);
     echo json_encode(array(
+       
         "message" => "login has failed"
     ));
 }

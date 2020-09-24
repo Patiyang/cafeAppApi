@@ -104,10 +104,7 @@ class Users
 
     function userExists()
     {
-        $query = "SELECT user_id, user_name, user_mobile, user_email,
-        FROM " . $this->tableName . "
-        WHERE user_email = ?
-        LIMIT 0,1";
+        $query = "SELECT * FROM " . $this->tableName . " WHERE user_email = ? LIMIT 0,1";
 
         $this->user_email = htmlspecialchars(strip_tags($this->user_email));
         $stmt = $this->conn->prepare($query);
@@ -122,6 +119,7 @@ class Users
             $this->user_name = $row['user_name'];
             $this->user_mobile = $row['user_mobile'];
             $this->user_email = $row['user_email'];
+            $this->password = $row['password'];
             return true;
         }
         return false;

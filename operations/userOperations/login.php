@@ -59,6 +59,7 @@ if ($userExists &&  password_verify($data->password, $user->password)) {
 } else {
     http_response_code(401);
     echo json_encode(array(
+        $user->user_name,
         "message" => "login has failed"
     ));
 }
