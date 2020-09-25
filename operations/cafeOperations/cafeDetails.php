@@ -9,7 +9,7 @@ header('Content-Type: application/json');
 // include database and object files
 include_once '../../config/database.php';
 include_once '../../objects/cafe.php';
-  
+  //gets a single cafe
 // get database connection
 $database = new CafeDB();
 $db = $database->getConnection();

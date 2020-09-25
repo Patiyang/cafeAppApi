@@ -14,18 +14,19 @@ $db = $database->getConnection();
 $user = new Users($db);
 $userData = json_decode(file_get_contents("php://input"));
 
-
+//gets the json data and logs in a user if they are available in database
 if (
-    !empty($userData->userName) &&
-    !empty($userData->password) &&
-    !empty($userData->phone) &&
-    !empty($userData->email)
+    // !empty($userData->userName) 
+    !empty($userData->email)&&
+    !empty($userData->password)
+    // !empty($userData->phone) &&
+    
 ) {
-    $user->user_name = $userData->userName;
+    // $user->user_name = $userData->userName;
     $user->password = $userData->password;
     $user->user_email = $userData->email;
-    $user->user_mobile = $userData->phone;
-    $user->user_address = $userData->address;
+    // $user->user_mobile = $userData->phone;
+    // $user->user_address = $userData->address;
     $user->user_img = "";
     // $user->user_addon = "";
     $user->user_status = "0";
@@ -35,7 +36,7 @@ if (
         echo json_encode(array("message" => "User was created."));
     } else {
         http_response_code(503);
-        echo json_encode(array("message" => "error encountered while creating the user"));
+        echo json_encode(array("message" => "User already exists"));
     }
 } else {
     http_response_code(400);

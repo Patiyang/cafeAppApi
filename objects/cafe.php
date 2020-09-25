@@ -24,6 +24,7 @@ class CafeOwner
     {
         $this->conn = $db;
     }
+    //gets all cafes
     function read()
     {
         $query = "SELECT * FROM " . $this->tableName;
@@ -31,7 +32,7 @@ class CafeOwner
         $stmt->execute();
         return $stmt;
     }
-
+    //gets a single cafe
     function readOne()
     {
         $query = "SELECT * FROM " . $this->tableName . " WHERE cafe_id = ? LIMIT 0,1";
@@ -113,7 +114,7 @@ class CafeOwner
                 SET cafe_name = :cafe_name, owner_upi = :owner_upi, location = :location, cafe_cost = :cafe_cost, description = :description, service_area = :service_area, facilities = :facilities, primary_image = :primary_image, secondary = :secondary, status = :status WHERE owner_email = :owner_email";
         $stmt = $this->conn->prepare($query);
 
-      
+
         $this->owner_email = htmlspecialchars(strip_tags($this->owner_email));
         $this->cafe_name = htmlspecialchars(strip_tags($this->cafe_name));
         $this->owner_upi = htmlspecialchars(strip_tags($this->owner_upi));
