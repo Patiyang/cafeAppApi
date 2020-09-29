@@ -1,7 +1,7 @@
 <?php
 class CafeDb{
     private $host = "localhost";
-    private $db_name = "cafeManagement";
+    private $db_name = "cafe";
     private $username = "root";
     private $password = "";
     public $conn;
