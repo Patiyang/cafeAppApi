@@ -38,7 +38,7 @@ if ($num > 0) {
             "facilities"=>$facilities,
             "primary_image"=>$primary_image,
             "secondary"=>$primary_image,
-            "status"=>$primary_image
+            "status"=>$status
         );
 
         array_push($details_arr['users'], $details_item);
