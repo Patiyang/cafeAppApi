@@ -43,17 +43,14 @@ if ($userExists &&  password_verify($data->password, $user->password)) {
             "phoneNumber" => $user->user_mobile,
         )
     );
-
     http_response_code(200);
-
-    // generate web token for verifying user is logged in
     $jwt = JWT::encode($token, $key);
     echo json_encode(
         array(
             "message" => "Successful login.",
-            "jwt" => $jwt,
             "email" => $user->user_email,
-            "names" => $user->user_name
+            "names" => $user->user_name,
+            "jwt" => $jwt
         )
     );
 } else {

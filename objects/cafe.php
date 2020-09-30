@@ -19,6 +19,7 @@ class CafeOwner
     public $primary_image;
     public $secondary;
     public $status;
+    public $cafe_filter;
 
     public function __construct($db)
     {
@@ -34,11 +35,15 @@ class CafeOwner
     }
     function readFilter()
     {
-        $query = "SELECT * FROM " . $this->tableName;
+        $filterQuery = htmlspecialchars(strip_tags($this->cafe_filter));
+
+        $query = $filterQuery;
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         return $stmt;
     }
+
+
     //gets a single cafe
     function readOne()
     {
@@ -156,32 +161,5 @@ class CafeOwner
         return false;
     }
 
-    function userExists()
-    {
-        $query = "SELECT cafe_id, owner_name, owner_pass, owner_mob, owner_email
-        FROM " . $this->tableName . "
-        WHERE owner_email = ?
-        LIMIT 0,1";
-
-        $stmt = $this->conn->prepare($query);
-
-        $this->owner_email = htmlspecialchars(strip_tags($this->owner_email));
-
-        $stmt->bindParam(1, $this->owner_email);
-        $stmt->execute();
-
-        $num = $stmt->rowCount();
-
-        if ($num > 0) {
-
-            $row = $stmt->fetch(PDO::FETCH_ASSOC);
-            $this->cafe_id = $row['cafe_id'];
-            $this->owner_name = $row['owner_name'];
-            $this->owner_pass = $row['owner_pass'];
-            $this->owner_mob = $row['owner_mob'];
-            $this->owner_email = $row['owner_email'];
-            return true;
-        }
-        return false;
-    }
+  
 }

@@ -1,6 +1,7 @@
 <?php
 // required headers
 header("Access-Control-Allow-Origin: *");
+// header("Access-Control-Allow-Methods: POST");
 header("Content-Type: application/json; charset=UTF-8");
 
 include_once '../../config/database.php';
@@ -9,10 +10,11 @@ include_once '../../objects/cafe.php';
 $database = new CafeDB();
 $db = $database->getConnection();
 
-$details = new CafeOwner($db);
+$cafeOwner = new CafeOwner($db);
 
-// query users
-$stmt = $details->read();
+$data = json_decode(file_get_contents("php://input"));
+$cafeOwner->cafe_filter = $data->query;
+$stmt = $cafeOwner->readFilter();
 $num = $stmt->rowCount();
 
 // check if more than 0 record found
@@ -39,7 +41,8 @@ if ($num > 0) {
             "secondary"=>$primary_image,
             "status"=>$status,
             "latitude"=>$latitude,
-            "longitude"=>$longitude
+            "longitude"=>$longitude,
+            "cuisine"=>$cuisine
         );
 
         array_push($details_arr['users'], $details_item);
