@@ -32,6 +32,13 @@ class CafeOwner
         $stmt->execute();
         return $stmt;
     }
+    function readFilter()
+    {
+        $query = "SELECT * FROM " . $this->tableName;
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
     //gets a single cafe
     function readOne()
     {
