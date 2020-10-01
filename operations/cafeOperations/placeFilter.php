@@ -1,7 +1,7 @@
 <?php
 // required headers
 header("Access-Control-Allow-Origin: *");
-// header("Access-Control-Allow-Methods: POST");
+header("Access-Control-Allow-Methods: POST");
 header("Content-Type: application/json; charset=UTF-8");
 
 include_once '../../config/database.php';
@@ -14,14 +14,14 @@ $cafeOwner = new CafeOwner($db);
 
 $data = json_decode(file_get_contents("php://input"));
 $cafeOwner->cafe_filter = $data->query;
-$stmt = $cafeOwner->readFilter();
+$stmt = $cafeOwner->readCuisineFilter();
 $num = $stmt->rowCount();
 
 // check if more than 0 record found
 if ($num > 0) {
 
     $details_arr = array();
-    $details_arr["users"] = array();
+    $details_arr["dishes"] = array();
 
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         extract($row);
@@ -45,7 +45,7 @@ if ($num > 0) {
             "cuisine"=>$cuisine
         );
 
-        array_push($details_arr['users'], $details_item);
+        array_push($details_arr['dishes'], $details_item);
     }
 
     http_response_code(200);
@@ -53,7 +53,7 @@ if ($num > 0) {
 } else {
     http_response_code(404);
     echo json_encode(
-        array("message" => "No user found.")
+        array("message" => "No dishes found.")
     );
 }
   

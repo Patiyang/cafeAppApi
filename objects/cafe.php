@@ -33,7 +33,7 @@ class CafeOwner
         $stmt->execute();
         return $stmt;
     }
-    function readFilter()
+    function readCuisineFilter()
     {
         $filterQuery = htmlspecialchars(strip_tags($this->cafe_filter));
 
@@ -42,8 +42,24 @@ class CafeOwner
         $stmt->execute();
         return $stmt;
     }
+    function readLocationFilter()
+    {
+        $filterQuery = htmlspecialchars(strip_tags($this->cafe_filter));
 
+        $query = $filterQuery;
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
+    function readFacilitiesFilter()
+    {
+        $filterQuery = htmlspecialchars(strip_tags($this->cafe_filter));
 
+        $query = $filterQuery;
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
     //gets a single cafe
     function readOne()
     {
