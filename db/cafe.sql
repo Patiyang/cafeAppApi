@@ -351,7 +351,7 @@ ALTER TABLE `transactions`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`user_id`),
-  ADD UNIQUE KEY `user_email` (`user_email`);
+  ADD UNIQUE KEY `user_email` (`user_email`,`user_mobile`);
 
 --
 -- AUTO_INCREMENT for dumped tables

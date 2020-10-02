@@ -43,5 +43,5 @@ if($details->owner_name!=null){
   
 else{
     http_response_code(404);
-    echo json_encode(array("message" => "user does not exist."));
+    echo json_encode(array("message" => "cafe does not exist."));
 }

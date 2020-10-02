@@ -15,7 +15,7 @@ $db = $database->getConnection();
 $user = new Users($db);
 
 $data = json_decode(file_get_contents("php://input"));
-$user->user_email = $data->email;
+$user->user_mobile = $data->phone;
 
 $userExists = $user->userExists();
 
@@ -50,13 +50,13 @@ if ($userExists &&  password_verify($data->password, $user->password)) {
             "message" => "Successful login.",
             "email" => $user->user_email,
             "names" => $user->user_name,
+            "phone"=>$user->user_mobile,
             "jwt" => $jwt
         )
     );
 } else {
     http_response_code(401);
     echo json_encode(array(
-        $user->user_name,
         "message" => "login has failed"
     ));
 }

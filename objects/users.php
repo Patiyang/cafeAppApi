@@ -28,10 +28,10 @@ class Users
 
     function readOne()
     {
-        $query = "SELECT * FROM " . $this->tableName . " WHERE user_id = ? LIMIT 0,1";
+        $query = "SELECT * FROM " . $this->tableName . " WHERE user_mobile = ? LIMIT 0,1";
         $stmt = $this->conn->prepare($query);
 
-        $stmt->bindParam(1, $this->cafe_id);
+        $stmt->bindParam(1, $this->user_mobile);
         $stmt->execute();
 
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -104,12 +104,12 @@ class Users
 
     function userExists()
     {
-        $query = "SELECT * FROM " . $this->tableName . " WHERE user_email = ? LIMIT 0,1";
+        $query = "SELECT * FROM " . $this->tableName . " WHERE user_mobile = ? LIMIT 0,1";
 
-        $this->user_email = htmlspecialchars(strip_tags($this->user_email));
+        $this->user_mobile = htmlspecialchars(strip_tags($this->user_mobile));
         $stmt = $this->conn->prepare($query);
 
-        $stmt->bindParam(1, $this->user_email);
+        $stmt->bindParam(1, $this->user_mobile);
         $stmt->execute();
         $num = $stmt->rowCount();
 

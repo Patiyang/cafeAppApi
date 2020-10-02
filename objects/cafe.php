@@ -2,7 +2,7 @@
 class CafeOwner
 {
     private $conn;
-    private $tableName = 'cafe';
+    private $tableName = 'placeDetails';
 
     public $cafe_id;
     public $owner_name;
