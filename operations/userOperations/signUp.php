@@ -18,14 +18,14 @@ $userData = json_decode(file_get_contents("php://input"));
 if (
     !empty($userData->names)&& 
     !empty($userData->email)&&
-    !empty($userData->password)
-    // !empty($userData->phone) &&
+    !empty($userData->password)&&
+    !empty($userData->phone)
     
 ) {
     $user->user_name = $userData->names;
     $user->password = $userData->password;
     $user->user_email = $userData->email;
-    // $user->user_mobile = $userData->phone;
+    $user->user_mobile = $userData->phone;
     // $user->user_address = $userData->address;
     $user->user_img = "";
     // $user->user_addon = "";
