@@ -51,6 +51,7 @@ if ($userExists &&  password_verify($data->password, $user->password)) {
             "email" => $user->user_email,
             "names" => $user->user_name,
             "phone"=>$user->user_mobile,
+            "id"=>$user->user_id,
             "jwt" => $jwt
         )
     );

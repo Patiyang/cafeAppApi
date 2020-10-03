@@ -13,6 +13,7 @@ class Users
     public $user_status;
     public $user_addon;
     public $password;
+    public $user_about;
 
     public function __construct($db)
     {
@@ -85,16 +86,21 @@ class Users
     {
         $query = "UPDATE
                     " . $this->tableName . "
-                SET user_name = :user_name, user_mobile = :user_mobile, user_email = :user_email WHERE user_email = :user_email";
+                SET user_name = :user_name, user_address = :user_address, user_email = :user_email, user_about = :user_about WHERE user_mobile = :user_mobile";
         $stmt = $this->conn->prepare($query);
         // sanitize the data
-        $this->user_name = htmlspecialchars(strip_tags($this->user_name));
         $this->user_mobile = htmlspecialchars(strip_tags($this->user_mobile));
+        $this->user_name = htmlspecialchars(strip_tags($this->user_name));
+        $this->user_address = htmlspecialchars(strip_tags($this->user_address));
         $this->user_email = htmlspecialchars(strip_tags($this->user_email));
+        $this->user_about = htmlspecialchars(strip_tags($this->user_about));
         // new user values go here
-        $stmt->bindParam(':user_name', $this->user_name);
         $stmt->bindParam(':user_mobile', $this->user_mobile);
+        $stmt->bindParam(':user_name', $this->user_name);
+        $stmt->bindParam(':user_address', $this->user_address);
         $stmt->bindParam(':user_email', $this->user_email);
+        $stmt->bindParam(':user_about', $this->user_about);
+
 
         if ($stmt->execute()) {
             return true;

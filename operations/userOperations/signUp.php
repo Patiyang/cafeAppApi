@@ -16,11 +16,11 @@ $userData = json_decode(file_get_contents("php://input"));
 
 //gets the json data and logs in a user if they are available in database
 if (
-    !empty($userData->names)&& 
-    !empty($userData->email)&&
-    !empty($userData->password)&&
+    !empty($userData->names) &&
+    !empty($userData->email) &&
+    !empty($userData->password) &&
     !empty($userData->phone)
-    
+
 ) {
     $user->user_name = $userData->names;
     $user->password = $userData->password;
@@ -28,12 +28,22 @@ if (
     $user->user_mobile = $userData->phone;
     // $user->user_address = $userData->address;
     $user->user_img = "";
-    // $user->user_addon = "";
     $user->user_status = "0";
 
+    $details_arr = array();
+    $details_arr["user"] = array();
+
     if ($user->create()) {
+        $details_item = array(
+            "message" => "User was created.",
+            "email" => $user->user_email,
+            "names" => $user->user_name,
+            "phone" => $user->user_mobile,
+            "id" => $user->user_id,
+        );
+        array_push($details_arr['user'], $details_item);
         http_response_code(201);
-        echo json_encode(array("message" => "User was created."));
+        echo json_encode($details_arr);
     } else {
         http_response_code(503);
         echo json_encode(array("message" => "User already exists"));
