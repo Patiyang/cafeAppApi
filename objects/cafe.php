@@ -3,7 +3,8 @@ class CafeOwner
 {
     private $conn;
     private $tableName = 'placeDetails';
-
+    private $imagesTable = 'image_list';
+//geting the details of a single cafe
     public $cafe_id;
     public $owner_name;
     public $owner_pass;
@@ -20,6 +21,26 @@ class CafeOwner
     public $secondary;
     public $status;
     public $cafe_filter;
+
+//getting all of the cafe images
+public $image_id;
+public $cafe_owner;
+public $image_1;
+public $image_2;
+public $image_3;
+public $image_4;
+public $image_5;
+public $image_6;
+public $image_7;
+public $image_8;
+public $image_9;
+public $image_10;
+public $image_11;
+public $image_12;
+public $image_13;
+public $image_14;
+public $image_15;
+
 
     public function __construct($db)
     {
@@ -59,6 +80,33 @@ class CafeOwner
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         return $stmt;
+    }
+    function readCafeImages(){
+        $query = "SELECT * FROM " . $this->imagesTable . " WHERE cafe_owner = ? LIMIT 0,1";
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->bindParam(1, $this->cafe_owner);
+        $stmt->execute();
+
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        $this->image_id = $row['image_id'];
+        $this->cafe_owner = $row['cafe_owner'];
+        $this->image_1 = $row['image_1'];
+        $this->image_2 = $row['image_2'];
+        $this->image_3 = $row['image_3'];
+        $this->image_4 = $row['image_4'];
+        $this->image_5 = $row['image_5'];
+        $this->image_6 = $row['image_6'];
+        $this->image_7 = $row['image_7'];
+        $this->image_8 = $row['image_8'];
+        $this->image_9 = $row['image_9'];
+        $this->image_10 = $row['image_10'];
+        $this->image_11 = $row['image_11'];
+        $this->image_12 = $row['image_12'];
+        $this->image_13 = $row['image_13'];
+        $this->image_14 = $row['image_14'];
+        $this->image_15 = $row['image_15'];
+
     }
     //gets a single cafe
     function readOne()

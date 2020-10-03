@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Sep 29, 2020 at 07:02 AM
+-- Generation Time: Oct 03, 2020 at 11:54 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.2.33
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `cafeManagement`
+-- Database: `cafe`
 --
 
 -- --------------------------------------------------------
@@ -61,41 +61,6 @@ CREATE TABLE `bookings` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cafe`
---
-
-CREATE TABLE `cafe` (
-  `cafe_id` int(11) NOT NULL,
-  `owner_name` varchar(255) DEFAULT NULL,
-  `owner_mob` varchar(30) DEFAULT NULL,
-  `owner_email` varchar(255) DEFAULT NULL,
-  `owner_pass` varchar(255) DEFAULT NULL,
-  `cafe_name` varchar(255) DEFAULT NULL,
-  `owner_upi` varchar(255) DEFAULT NULL,
-  `location` varchar(255) DEFAULT NULL,
-  `cafe_cost` int(11) DEFAULT NULL,
-  `description` varchar(1000) DEFAULT NULL,
-  `service_area` int(11) DEFAULT NULL,
-  `facilities` varchar(255) DEFAULT NULL,
-  `primary_image` varchar(255) DEFAULT NULL,
-  `secondary` varchar(255) DEFAULT NULL,
-  `status` int(11) NOT NULL,
-  `cuisine` varchar(255) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `cafe`
---
-
-INSERT INTO `cafe` (`cafe_id`, `owner_name`, `owner_mob`, `owner_email`, `owner_pass`, `cafe_name`, `owner_upi`, `location`, `cafe_cost`, `description`, `service_area`, `facilities`, `primary_image`, `secondary`, `status`, `cuisine`) VALUES
-(1, 'Owner one', '9999999999', 'test@test.com', '111111', 'Owner One name', 'CKVN,CVN', ',VN,', 1, 'Amazing menus and cuisines', 1, 'Bike Parking,Car Parking,WIFI permises,Screen Projector,', 'res5.jpg', 'res5.jpg', 0, 'ethiopian, chineese'),
-(2, 'Owner two', '9999999999', 'test@test.com', '111111', 'Owner Two cafe', 'jgnsdkj', 'kghsdkjhgkj', 1, 'fjsdfjb', 5, 'Bike Parking,Clean Wash rooms,Snooker,', 'res4.jpg', 'res4.jpg', 0, 'mexican, indian'),
-(3, 'patrick', '0723942008', 'patrickgithinji5@gmail.com', 'admin', 'Mbui', '125478', 'Nakuru', 12, 'description', 2, 'Bike Parking,WIFI permises,Screen Projector,Clean Wash rooms,Snooker,', '9810res2.jpg', '3053res5.jpg', 0, 'indian, chineese'),
-(4, 'patrick', '0723942008', 'patiyang6@gmail.com', '111111', 'Shirikisho', '425', NULL, 400, 'description is that this is one of the best cafes there are out there', 3, 'swimming, hotel, massage, sauna', '9810res2.jpg', '9810res2.jpg', 1, 'indian, chineese, traditional, ethiopian, generic');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `categories`
 --
 
@@ -103,7 +68,7 @@ CREATE TABLE `categories` (
   `id` int(11) NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `image` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+  `description` varchar(10000) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -111,11 +76,11 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`id`, `name`, `image`, `description`) VALUES
-(1, 'Vegetables', 'vegetables.jpg', 'these are just veggies'),
-(2, 'Sandwiches', 'sandwitch.jpg', 'these are just sandwitches'),
-(3, 'Protein', 'protein.jpg', 'these are just proteins'),
-(4, 'Grains', 'grains.png', 'these are just grains'),
-(5, 'Fruits', 'fruits.png', 'these are just fruits');
+(1, 'Farm House', 'Farm House.jpg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam massa arcu, ornare quis efficitur nec, eleifend in velit. Pellentesque eu odio viverra, cursus nunc et, bibendum dui. Morbi feugiat in neque id maximus. Praesent quis metus sed ante dignissim hendrerit fringilla tincidunt diam. Nullam convallis gravida faucibus. Suspendisse potenti. Praesent ultricies congue arcu, eu fermentum lorem malesuada in. Vestibulum molestie cursus tellus in condimentum.'),
+(2, 'Villa', 'Villa.jpg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam massa arcu, ornare quis efficitur nec, eleifend in velit. Pellentesque eu odio viverra, cursus nunc et, bibendum dui. Morbi feugiat in neque id maximus. Praesent quis metus sed ante dignissim hendrerit fringilla tincidunt diam. Nullam convallis gravida faucibus. Suspendisse potenti. Praesent ultricies congue arcu, eu fermentum lorem malesuada in. Vestibulum molestie cursus tellus in condimentum.'),
+(3, 'Apartment', 'Apartment.jpg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam massa arcu, ornare quis efficitur nec, eleifend in velit. Pellentesque eu odio viverra, cursus nunc et, bibendum dui. Morbi feugiat in neque id maximus. Praesent quis metus sed ante dignissim hendrerit fringilla tincidunt diam. Nullam convallis gravida faucibus. Suspendisse potenti. Praesent ultricies congue arcu, eu fermentum lorem malesuada in. Vestibulum molestie cursus tellus in condimentum.'),
+(4, 'lounge', 'lounge.jpg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam massa arcu, ornare quis efficitur nec, eleifend in velit. Pellentesque eu odio viverra, cursus nunc et, bibendum dui. Morbi feugiat in neque id maximus. Praesent quis metus sed ante dignissim hendrerit fringilla tincidunt diam. Nullam convallis gravida faucibus. Suspendisse potenti. Praesent ultricies congue arcu, eu fermentum lorem malesuada in. Vestibulum molestie cursus tellus in condimentum.'),
+(5, 'cafe', 'cafe.jpg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam massa arcu, ornare quis efficitur nec, eleifend in velit. Pellentesque eu odio viverra, cursus nunc et, bibendum dui. Morbi feugiat in neque id maximus. Praesent quis metus sed ante dignissim hendrerit fringilla tincidunt diam. Nullam convallis gravida faucibus. Suspendisse potenti. Praesent ultricies congue arcu, eu fermentum lorem malesuada in. Vestibulum molestie cursus tellus in condimentum.');
 
 -- --------------------------------------------------------
 
@@ -146,27 +111,51 @@ INSERT INTO `cuisine` (`id`, `name`, `description`, `restaurants`, `image`) VALU
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `facilities`
+--
+
+CREATE TABLE `facilities` (
+  `id` int(11) NOT NULL,
+  `name` varchar(1000) NOT NULL,
+  `image` varchar(1000) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `facilities`
+--
+
+INSERT INTO `facilities` (`id`, `name`, `image`) VALUES
+(1, 'swimming', ''),
+(2, 'Car Parking', ''),
+(3, 'WIFI permises', ''),
+(4, 'Snooker', ''),
+(5, 'Bike Parking', ''),
+(6, 'Screen Projector', '');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `image_list`
 --
 
 CREATE TABLE `image_list` (
   `image_id` int(11) NOT NULL,
-  `cafe_owner` varchar(30) NOT NULL,
+  `cafe_owner` varchar(255) NOT NULL,
   `image_1` varchar(255) NOT NULL,
   `image_2` varchar(255) NOT NULL,
-  `image_3` varchar(255) DEFAULT NULL,
-  `image_4` varchar(255) DEFAULT NULL,
-  `image_5` varchar(255) DEFAULT NULL,
-  `image_6` varchar(255) DEFAULT NULL,
-  `image_7` varchar(255) DEFAULT NULL,
-  `image_8` varchar(255) DEFAULT NULL,
-  `image_9` varchar(255) DEFAULT NULL,
-  `image_10` varchar(255) DEFAULT NULL,
-  `image_11` varchar(255) DEFAULT NULL,
-  `image_12` varchar(255) DEFAULT NULL,
-  `image_13` varchar(255) DEFAULT NULL,
-  `image_14` varchar(255) DEFAULT NULL,
-  `image_15` varchar(255) DEFAULT NULL
+  `image_3` varchar(255) NOT NULL,
+  `image_4` varchar(255) NOT NULL,
+  `image_5` varchar(255) NOT NULL,
+  `image_6` varchar(255) NOT NULL,
+  `image_7` varchar(255) NOT NULL,
+  `image_8` varchar(255) NOT NULL,
+  `image_9` varchar(255) NOT NULL,
+  `image_10` varchar(255) NOT NULL,
+  `image_11` varchar(255) NOT NULL,
+  `image_12` varchar(255) NOT NULL,
+  `image_13` varchar(255) NOT NULL,
+  `image_14` varchar(255) NOT NULL,
+  `image_15` varchar(255) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -174,12 +163,69 @@ CREATE TABLE `image_list` (
 --
 
 INSERT INTO `image_list` (`image_id`, `cafe_owner`, `image_1`, `image_2`, `image_3`, `image_4`, `image_5`, `image_6`, `image_7`, `image_8`, `image_9`, `image_10`, `image_11`, `image_12`, `image_13`, `image_14`, `image_15`) VALUES
-(1, 'Test Owner', '9607image-lorem-ipsum.png', '1484images.png', 'NULL', 'NULL', 'NULL', 'coffee_table.JPG', 'NULL', 'NULL', 'NULL', 'NULL', 'NULL', 'NULL', 'NULL', 'NULL', 'NULL'),
-(3, 'Sample', '7653Kanakadurga_Temple_gopuram - Copy.jpg', '4987lorem_ipsum - Copy.jpg', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(4, 'Test Owner', '7171images.png', '8712lorem_ipsum - Copy.jpg', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(5, 'kdjfsdjf', '6882image-lorem-ipsum.png', '8419images.png', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(6, 'mbgfsdb', '1723image-lorem-ipsum.png', '3444images.png', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(7, 'patrick', '9810res2.jpg', '3053res5.jpg', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+(1, 'patrick', '9607image-lorem-ipsum.png', '1484images.png', '', '', '', 'coffee_table.JPG', '', '', '', '', '', '', '', '', ''),
+(3, 'Owner one', '7653Kanakadurga_Temple_gopuram - Copy.jpg', '4987lorem_ipsum - Copy.jpg', '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(4, 'Owner two', '7171images.png', '8712lorem_ipsum - Copy.jpg', '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(5, 'peter', '6882image-lorem-ipsum.png', '8419images.png', '', '', '', '', '', '', '', '', '', '', '', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `location`
+--
+
+CREATE TABLE `location` (
+  `id` int(11) NOT NULL,
+  `name` varchar(1000) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `location`
+--
+
+INSERT INTO `location` (`id`, `name`) VALUES
+(1, 'Western Delhi'),
+(2, 'Central Delhi'),
+(3, 'North Delhi'),
+(4, 'South Delhi');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `placeDetails`
+--
+
+CREATE TABLE `placeDetails` (
+  `cafe_id` int(11) NOT NULL,
+  `owner_name` varchar(255) DEFAULT NULL,
+  `owner_mob` varchar(30) DEFAULT NULL,
+  `owner_email` varchar(255) DEFAULT NULL,
+  `owner_pass` varchar(255) DEFAULT NULL,
+  `cafe_name` varchar(255) DEFAULT NULL,
+  `owner_upi` varchar(255) DEFAULT NULL,
+  `location` varchar(255) DEFAULT NULL,
+  `cafe_cost` int(11) DEFAULT NULL,
+  `description` varchar(1000) DEFAULT NULL,
+  `service_area` int(11) DEFAULT NULL,
+  `facilities` varchar(255) DEFAULT NULL,
+  `primary_image` varchar(255) DEFAULT NULL,
+  `secondary` varchar(255) DEFAULT NULL,
+  `status` int(11) NOT NULL,
+  `cuisine` varchar(255) NOT NULL,
+  `longitude` varchar(1000) NOT NULL,
+  `latitude` varchar(1000) NOT NULL,
+  `category` varchar(1000) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `placeDetails`
+--
+
+INSERT INTO `placeDetails` (`cafe_id`, `owner_name`, `owner_mob`, `owner_email`, `owner_pass`, `cafe_name`, `owner_upi`, `location`, `cafe_cost`, `description`, `service_area`, `facilities`, `primary_image`, `secondary`, `status`, `cuisine`, `longitude`, `latitude`, `category`) VALUES
+(1, 'Owner one', '9999999999', 'test@test.com', '111111', 'Owner One name', 'CKVN,CVN', 'Western Delhi', 1, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ac condimentum dolor, ac faucibus est. Curabitur dictum pulvinar mi, ut fermentum sapien aliquet at. Nullam lacinia nulla vel mollis vehicula. Mauris ac dui quam. Phasellus risus ex, luctus id tortor sit amet, pharetra ultricies nibh. Phasellus vitae ante bibendum, luctus erat nec, semper sapien. Phasellus vulputate est sed mauris euismod, at finibus dolor faucibus. Aenean at mauris sit amet mi interdum rhoncus. Nunc sit amet tincidunt arcu. ', 1, 'Bike Parking, Car Parking, WIFI permises, Screen Projector', 'res5.jpg', 'res5.jpg', 0, 'ethiopian, chineese', ' 36.891416', '-1.206585', 'Farm House'),
+(2, 'Owner two', '9999999999', 'test@test.com', '111111', 'Owner Two cafe', 'jgnsdkj', 'Central Delhi', 1, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ac condimentum dolor, ac faucibus est. Curabitur dictum pulvinar mi, ut fermentum sapien aliquet at. Nullam lacinia nulla vel mollis vehicula. Mauris ac dui quam. Phasellus risus ex, luctus id tortor sit amet, pharetra ultricies nibh. Phasellus vitae ante bibendum, luctus erat nec, semper sapien. Phasellus vulputate est sed mauris euismod, at finibus dolor faucibus. Aenean at mauris sit amet mi interdum rhoncus. Nunc sit amet tincidunt arcu. ', 5, 'Bike Parking, Clean Wash rooms, Snooker', 'res4.jpg', 'res4.jpg', 0, 'mexican, indian', ' 36.936050', '-0.421931', 'Villa'),
+(3, 'patrick', '0723942008', 'patrickgithinji5@gmail.com', 'admin', 'Mbui', '125478', 'North Delhi', 12, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ac condimentum dolor, ac faucibus est. Curabitur dictum pulvinar mi, ut fermentum sapien aliquet at. Nullam lacinia nulla vel mollis vehicula. Mauris ac dui quam. Phasellus risus ex, luctus id tortor sit amet, pharetra ultricies nibh. Phasellus vitae ante bibendum, luctus erat nec, semper sapien. Phasellus vulputate est sed mauris euismod, at finibus dolor faucibus. Aenean at mauris sit amet mi interdum rhoncus. Nunc sit amet tincidunt arcu. ', 2, 'Bike Parking, WIFI permises, Screen Projector, Clean Wash rooms, Snooker', '9810res2.jpg', '3053res5.jpg', 0, 'indian, chineese', '36.965232', ' -0.393554', 'Apartment'),
+(4, 'peter', '0723942008', 'patiyang6@gmail.com', '111111', 'Shirikisho', '425', 'South Delhi', 400, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ac condimentum dolor, ac faucibus est. Curabitur dictum pulvinar mi, ut fermentum sapien aliquet at. Nullam lacinia nulla vel mollis vehicula. Mauris ac dui quam. Phasellus risus ex, luctus id tortor sit amet, pharetra ultricies nibh. Phasellus vitae ante bibendum, luctus erat nec, semper sapien. Phasellus vulputate est sed mauris euismod, at finibus dolor faucibus. Aenean at mauris sit amet mi interdum rhoncus. Nunc sit amet tincidunt arcu. ', 3, 'swimming, cafe, massage, sauna', '9810res2.jpg', '9810res2.jpg', 1, 'indian, chineese, traditional, ethiopian, generic', '36.955411', '-0.413851', 'lounge');
 
 -- --------------------------------------------------------
 
@@ -278,8 +324,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `user_name`, `user_mobile`, `user_email`, `user_img`, `user_address`, `password`, `user_status`, `user_addon`) VALUES
-(1, 'Test User', '', 'test@gmail.com', '', '', '$2y$10$e6Sv7Tkrnoo13c5AvfqhmedpW0paKPZiBC5vLU/t74VdhswgAE1Xq', '0', '2020-09-28 09:17:59'),
-(2, 'Peter Mwangi', '', 'peter@gmail.com', '', '', '$2y$10$SrVZKlYPaLSsA.V5mkJ/DOIB0GLf2ctL/Ud/CoJtZjxRH9s/c1kkq', '0', '2020-09-28 10:01:51');
+(4, 'Peter Mwangi', '0723942008', 'patiyang6@gmail.com', 'profile.jpg', '', '$2y$10$dOLo/wmDA8MHu2duWLE.cOEVBhlFqrancWEi4CNgrTHs5Ibk8g.1a', '0', '2020-10-02 09:12:07'),
+(5, 'patrick githinji', '0789816445', 'testUser@gmail.com', 'testUser.jpg', '', '$2y$10$0gyT34.SPnF60DcLM6uhbOyoz9uD0Eq4/cnf.8zO9XRvouO/gcC7S', '0', '2020-10-02 16:14:06');
 
 --
 -- Indexes for dumped tables
@@ -298,13 +344,6 @@ ALTER TABLE `bookings`
   ADD PRIMARY KEY (`booking_id`);
 
 --
--- Indexes for table `cafe`
---
-ALTER TABLE `cafe`
-  ADD PRIMARY KEY (`cafe_id`),
-  ADD UNIQUE KEY `owner_name` (`owner_name`,`owner_mob`,`owner_email`,`owner_upi`);
-
---
 -- Indexes for table `categories`
 --
 ALTER TABLE `categories`
@@ -317,10 +356,29 @@ ALTER TABLE `cuisine`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `facilities`
+--
+ALTER TABLE `facilities`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `image_list`
 --
 ALTER TABLE `image_list`
   ADD PRIMARY KEY (`image_id`);
+
+--
+-- Indexes for table `location`
+--
+ALTER TABLE `location`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `placeDetails`
+--
+ALTER TABLE `placeDetails`
+  ADD PRIMARY KEY (`cafe_id`),
+  ADD UNIQUE KEY `owner_name` (`owner_name`,`owner_mob`,`owner_email`,`owner_upi`);
 
 --
 -- Indexes for table `products`
@@ -351,7 +409,8 @@ ALTER TABLE `transactions`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`user_id`),
-  ADD UNIQUE KEY `user_email` (`user_email`,`user_mobile`);
+  ADD UNIQUE KEY `user_email` (`user_email`),
+  ADD UNIQUE KEY `user_mobile` (`user_mobile`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -362,12 +421,6 @@ ALTER TABLE `users`
 --
 ALTER TABLE `bookings`
   MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `cafe`
---
-ALTER TABLE `cafe`
-  MODIFY `cafe_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -382,10 +435,28 @@ ALTER TABLE `cuisine`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT for table `facilities`
+--
+ALTER TABLE `facilities`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT for table `image_list`
 --
 ALTER TABLE `image_list`
   MODIFY `image_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `location`
+--
+ALTER TABLE `location`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `placeDetails`
+--
+ALTER TABLE `placeDetails`
+  MODIFY `cafe_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -403,7 +474,7 @@ ALTER TABLE `rating`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

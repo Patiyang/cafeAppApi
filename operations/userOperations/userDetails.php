@@ -18,9 +18,11 @@ $details = new Users($db);
 $details->user_mobile = isset($_GET['user_mobile']) ? $_GET['user_mobile'] : die();
   
 $details->readOne();
-  
+$details_arr = array();
+$details_arr["user"] = array();
+
 if($details->user_name!=null){
-    $details_arr = array(
+    $details_item = array(
         "id" =>  $details->user_id,
         "userName" => $details->user_name,
         "password" => $details->password,
@@ -32,6 +34,8 @@ if($details->user_name!=null){
         "addon"=>$details->user_addon
         
     );
+    array_push($details_arr['user'], $details_item);
+
     http_response_code(200);
     echo json_encode($details_arr);
 }
