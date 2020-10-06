@@ -5,37 +5,26 @@ header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
-
-// include database and object files
+  
+// include database and object file
 include_once '../../config/database.php';
 include_once '../../objects/users.php';
-
+  
 // get database connection
 $database = new CafeDb();
 $db = $database->getConnection();
+  
+// prepare product object
 $user = new Users($db);
-
+  
 $data = json_decode(file_get_contents("php://input"));
-$user->user_mobile = $data->phone;
-
-// set product property values
-$user->user_id = $data->id;
-$user->user_mobile = $data->phone;
-$user->user_name = $data->name;
-$user->user_address = $data->address;
-$user->user_about = $data->about;
-$user->user_email = $data->email;
-$user->card_number = $data->cardNumber;
-$user->card_expiry = $data->cardExpiry;
-$user->cvc = $data->cvc;
-
-
-// update the product
-if ($user->updateUser()) {
+$user->booking_id = $data->id;
+  
+if($user->deleteBooking()){
     http_response_code(200);
-    echo json_encode(array("message" => "User was updated."));
+    echo json_encode(array("message" => "booking was deleted."));
 }
-else {
+else{
     http_response_code(503);
-    echo json_encode(array("message" => "Unable to update user."));
+    echo json_encode(array("message" => "Unable to delete booking."));
 }

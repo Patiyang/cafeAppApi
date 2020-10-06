@@ -16,26 +16,25 @@ $db = $database->getConnection();
 $user = new Users($db);
 
 $data = json_decode(file_get_contents("php://input"));
-$user->user_mobile = $data->phone;
-
+$user->booking_id = $data->id;
 // set product property values
-$user->user_id = $data->id;
-$user->user_mobile = $data->phone;
-$user->user_name = $data->name;
-$user->user_address = $data->address;
-$user->user_about = $data->about;
-$user->user_email = $data->email;
-$user->card_number = $data->cardNumber;
-$user->card_expiry = $data->cardExpiry;
-$user->cvc = $data->cvc;
+// $user->user_mobile = $data->phone;
+
+// $user->user_name = $data->name;
+// $user->place_name = $data->placeName;
+// $user->payMode = $data->payMode;
+// $user->complementary = $data->complementary;
+// $user->cancelled = $data->cancelled;
+// $user->status = $data->status;
+$user->reservations = $data->reservations;
+$user->cost = $data->cost;
 
 
 // update the product
-if ($user->updateUser()) {
+if ($user->updateBooking()) {
     http_response_code(200);
-    echo json_encode(array("message" => "User was updated."));
-}
-else {
+    echo json_encode(array("message" => "booking was updated."));
+} else {
     http_response_code(503);
     echo json_encode(array("message" => "Unable to update user."));
 }

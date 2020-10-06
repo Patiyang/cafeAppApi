@@ -3,6 +3,7 @@ class Users
 {
     private $conn;
     private $tableName = 'users';
+    private $bookingTable = 'bookings';
 
     public $user_id;
     public $user_name;
@@ -17,6 +18,20 @@ class Users
     public $card_number;
     public $cvc;
     public $card_expiry;
+
+    //creating booking variables
+    public $booking_id;
+    public $place_name;
+    public $payMode;
+    public $complementary;
+    public $cancelled;
+    public $status;
+    public $reservations;
+    public $cost;
+
+
+
+
 
     public function __construct($db)
     {
@@ -54,7 +69,7 @@ class Users
         $this->cvc = $row['cvc'];
     }
 
-    function create()
+    function createUser()
     {
 
         $query = "INSERT INTO " . $this->tableName . " 
@@ -92,13 +107,14 @@ class Users
         return false;
     }
 
-    function update()
+    function updateUser()
     {
         $query = "UPDATE
                     " . $this->tableName . "
-                SET user_name = :user_name, user_address = :user_address, user_email = :user_email, user_about = :user_about, card_number = :card_number, card_expiry = :card_expiry, cvc = :cvc WHERE user_mobile = :user_mobile";
+                SET user_name = :user_name, user_address = :user_address, user_email = :user_email, user_about = :user_about, card_number = :card_number, card_expiry = :card_expiry, cvc = :cvc, user_mobile = :user_mobile WHERE user_id = :user_id";
         $stmt = $this->conn->prepare($query);
         // sanitize the data
+        $this->user_id = htmlspecialchars(strip_tags($this->user_id));
         $this->user_mobile = htmlspecialchars(strip_tags($this->user_mobile));
         $this->user_name = htmlspecialchars(strip_tags($this->user_name));
         $this->user_address = htmlspecialchars(strip_tags($this->user_address));
@@ -109,6 +125,7 @@ class Users
         $this->cvc = htmlspecialchars(strip_tags($this->cvc));
 
         // new user values go here
+        $stmt->bindParam(':user_id', $this->user_id);
         $stmt->bindParam(':user_mobile', $this->user_mobile);
         $stmt->bindParam(':user_name', $this->user_name);
         $stmt->bindParam(':user_address', $this->user_address);
@@ -118,7 +135,42 @@ class Users
         $stmt->bindParam(':card_expiry', $this->card_expiry);
         $stmt->bindParam(':cvc', $this->cvc);
 
+        if ($stmt->execute()) {
+            return true;
+        }
+        return false;
+    }
 
+
+    //USER BOOKING OPERATIONS
+    function createUserBooking()
+    {
+
+        $query = "INSERT INTO " . $this->bookingTable . " 
+                    SET 
+                    user_name = :user_name, place_name = :place_name, pay_mode = :pay_mode, complementary = :complementary, cancelled = :cancelled, status = :status, cost = :cost, reservations = :reservations";
+
+        $stmt = $this->conn->prepare($query);
+
+        $this->user_name = htmlspecialchars(strip_tags($this->user_name));
+        $this->place_name = htmlspecialchars(strip_tags($this->place_name));
+        $this->payMode = htmlspecialchars(strip_tags($this->payMode));
+        $this->complementary = htmlspecialchars(strip_tags($this->complementary));
+        $this->cancelled = htmlspecialchars(strip_tags($this->cancelled));
+        $this->status = htmlspecialchars(strip_tags($this->status));
+        $this->cost = htmlspecialchars(strip_tags($this->cost));
+        $this->reservations = htmlspecialchars(strip_tags($this->reservations));
+
+
+
+        $stmt->bindParam(':user_name', $this->user_name);
+        $stmt->bindParam(':place_name', $this->place_name);
+        $stmt->bindParam(':pay_mode', $this->payMode);
+        $stmt->bindParam(':complementary', $this->complementary);
+        $stmt->bindParam(':cancelled', $this->cancelled);
+        $stmt->bindParam(':status', $this->status);
+        $stmt->bindParam(':cost', $this->cost);
+        $stmt->bindParam(':reservations', $this->reservations);
 
 
         if ($stmt->execute()) {
@@ -127,6 +179,62 @@ class Users
         return false;
     }
 
+    function readBookings()
+    {
+        $query = "SELECT * FROM " . $this->bookingTable;
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
+
+
+    function updateBooking()
+    {
+        $query = "UPDATE
+        " . $this->bookingTable . "
+    SET reservations = :reservations, cost = :cost WHERE booking_id = :booking_id";
+        $stmt = $this->conn->prepare($query);
+        // sanitize the data
+        $this->booking_id = htmlspecialchars(strip_tags($this->booking_id));
+        // $this->place_name = htmlspecialchars(strip_tags($this->place_name));
+        // $this->user_name = htmlspecialchars(strip_tags($this->user_name));
+        // $this->payMode = htmlspecialchars(strip_tags($this->payMode));
+        // $this->complementary = htmlspecialchars(strip_tags($this->complementary));
+        // $this->cancelled = htmlspecialchars(strip_tags($this->cancelled));
+        // $this->status = htmlspecialchars(strip_tags($this->status));
+        $this->reservations = htmlspecialchars(strip_tags($this->reservations));
+        $this->cost = htmlspecialchars(strip_tags($this->cost));
+
+        // new user values go here
+        $stmt->bindParam(':booking_id', $this->booking_id);
+        // $stmt->bindParam(':place_name', $this->place_name);
+        // $stmt->bindParam(':user_name', $this->user_name);
+        // $stmt->bindParam(':user_address', $this->payMode);
+        // $stmt->bindParam(':complementary', $this->complementary);
+        // $stmt->bindParam(':cancelled', $this->cancelled);
+        // $stmt->bindParam(':status', $this->status);
+        $stmt->bindParam(':reservations', $this->reservations);
+        $stmt->bindParam(':cost', $this->cost);
+
+        if ($stmt->execute()) {
+            return true;
+        }
+        return false;
+    }
+
+    function deleteBooking()
+    {
+        $query = "DELETE FROM " . $this->bookingTable . " WHERE booking_id = ?";
+        $stmt = $this->conn->prepare($query);
+        $this->booking_id = htmlspecialchars(strip_tags($this->booking_id));
+
+        $stmt->bindParam(1, $this->booking_id);
+        if ($stmt->execute()) {
+            return true;
+        }
+
+        return false;
+    }
     function userExists()
     {
         $query = "SELECT * FROM " . $this->tableName . " WHERE user_mobile = ? LIMIT 0,1";

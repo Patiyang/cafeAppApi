@@ -14,31 +14,35 @@ $db = $database->getConnection();
 $user = new Users($db);
 $userData = json_decode(file_get_contents("php://input"));
 
-//gets the json data and logs in a user if they are available in database
 
 if (
     !empty($userData->names) &&
-    !empty($userData->email) &&
-    !empty($userData->password) &&
-    !empty($userData->phone)
+    !empty($userData->placeName) &&
+    !empty($userData->payMode) &&
+    !empty($userData->complementary) &&
+    !empty($userData->cancelled) &&
+    !empty($userData->status) &&
+    !empty($userData->cost) && 
+    !empty($userData->reservations)
 ) {
     $user->user_name = $userData->names;
-    $user->password = $userData->password;
-    $user->user_email = $userData->email;
-    $user->user_mobile = $userData->phone;
-    $user->user_address = "";
-    $user->user_img = "";
-    $user->user_status = "0";
-    $user->user_about="";
+    $user->place_name = $userData->placeName;
+    $user->payMode = $userData->payMode;
+    $user->complementary = $userData->complementary;
+    $user->cancelled = $userData->cancelled;
+    $user->status = $userData->status;
+    $user->cost = $userData->cost;
+    $user->reservations = $userData->reservations;
 
-    if ($user->createUser()) {
+
+    if ($user->createUserBooking()) {
         http_response_code(201);
-        echo json_encode(array("message" => "User was created."));
+        echo json_encode(array("message" => "booking was created."));
     } else {
         http_response_code(404);
         echo json_encode(array("message" => "an error encountered when creating user"));
     }
 } else {
     http_response_code(503);
-    echo json_encode(array("message" => "incomplete data"));
+    echo json_encode(array("message" => "incomplete data, booking was not created"));
 }
