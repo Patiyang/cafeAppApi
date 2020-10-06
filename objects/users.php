@@ -28,6 +28,7 @@ class Users
     public $status;
     public $reservations;
     public $cost;
+    public $booking_image;
 
 
 
@@ -148,7 +149,7 @@ class Users
 
         $query = "INSERT INTO " . $this->bookingTable . " 
                     SET 
-                    user_name = :user_name, place_name = :place_name, pay_mode = :pay_mode, complementary = :complementary, cancelled = :cancelled, status = :status, cost = :cost, reservations = :reservations";
+                    user_name = :user_name,place_name = :place_name, pay_mode = :pay_mode, complementary = :complementary, cancelled = :cancelled, status = :status, cost = :cost, reservations = :reservations, image = :image";
 
         $stmt = $this->conn->prepare($query);
 
@@ -160,8 +161,7 @@ class Users
         $this->status = htmlspecialchars(strip_tags($this->status));
         $this->cost = htmlspecialchars(strip_tags($this->cost));
         $this->reservations = htmlspecialchars(strip_tags($this->reservations));
-
-
+        $this->booking_image = htmlspecialchars(strip_tags($this->booking_image));
 
         $stmt->bindParam(':user_name', $this->user_name);
         $stmt->bindParam(':place_name', $this->place_name);
@@ -171,6 +171,8 @@ class Users
         $stmt->bindParam(':status', $this->status);
         $stmt->bindParam(':cost', $this->cost);
         $stmt->bindParam(':reservations', $this->reservations);
+        $stmt->bindParam(':image', $this->booking_image);
+
 
 
         if ($stmt->execute()) {

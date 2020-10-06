@@ -23,7 +23,8 @@ if (
     !empty($userData->cancelled) &&
     !empty($userData->status) &&
     !empty($userData->cost) && 
-    !empty($userData->reservations)
+    !empty($userData->reservations)&&
+    !empty($userData->image)
 ) {
     $user->user_name = $userData->names;
     $user->place_name = $userData->placeName;
@@ -33,6 +34,7 @@ if (
     $user->status = $userData->status;
     $user->cost = $userData->cost;
     $user->reservations = $userData->reservations;
+    $user->booking_image = $userData->image;
 
 
     if ($user->createUserBooking()) {
