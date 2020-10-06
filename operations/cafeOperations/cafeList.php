@@ -19,7 +19,7 @@ $num = $stmt->rowCount();
 if ($num > 0) {
 
     $details_arr = array();
-    $details_arr["users"] = array();
+    $details_arr["cafes"] = array();
 
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         extract($row);
@@ -39,10 +39,14 @@ if ($num > 0) {
             "secondary"=>$primary_image,
             "status"=>$status,
             "latitude"=>$latitude,
-            "longitude"=>$longitude
+            "longitude"=>$longitude,
+            "information"=>$information,
+            "reservation"=>$full_reservation,
+            "individual_booking"=>$individual_booking,
+            "capacity"=>$capacity
         );
 
-        array_push($details_arr['users'], $details_item);
+        array_push($details_arr['cafes'], $details_item);
     }
 
     http_response_code(200);

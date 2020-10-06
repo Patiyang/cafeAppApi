@@ -23,11 +23,15 @@ $user->user_name = $data->name;
 $user->user_address = $data->address;
 $user->user_about = $data->about;
 $user->user_email = $data->email;
+$user->card_number = $data->cardNumber;
+$user->card_expiry = $data->cardExpiry;
+$user->cvc = $data->cvc;
+
 
 // update the product
 if ($user->update()) {
     http_response_code(200);
-    echo json_encode(array("message" => "Product was updated."));
+    echo json_encode(array("message" => "User was updated."));
 }
 else {
     http_response_code(503);

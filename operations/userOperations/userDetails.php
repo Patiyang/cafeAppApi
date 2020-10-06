@@ -31,7 +31,12 @@ if($details->user_name!=null){
         "image" => $details->user_img,
         "user_address" => $details->user_address,
         "status" => $details->user_status,
-        "addon"=>$details->user_addon
+        "addon"=>$details->user_addon,
+        "about"=>$details->user_about,
+        "cardNumber"=>$details->card_number,
+        "cardExpiry"=>$details->card_expiry,
+        "cvc"=>$details->cvc
+
         
     );
     array_push($details_arr['user'], $details_item);

@@ -14,6 +14,9 @@ class Users
     public $user_addon;
     public $password;
     public $user_about;
+    public $card_number;
+    public $cvc;
+    public $card_expiry;
 
     public function __construct($db)
     {
@@ -45,6 +48,10 @@ class Users
         $this->user_status = $row['user_status'];
         $this->user_addon = $row['user_addon'];
         $this->password = $row['password'];
+        $this->user_about = $row['user_about'];
+        $this->card_number = $row['card_number'];
+        $this->card_expiry = $row['card_expiry'];
+        $this->cvc = $row['cvc'];
     }
 
     function create()
@@ -52,7 +59,7 @@ class Users
 
         $query = "INSERT INTO " . $this->tableName . " 
                     SET 
-                    user_name = :user_name, user_mobile = :user_mobile, user_email = :user_email, user_address = :user_address, user_img = :user_img, user_status = :user_status, password = :password";
+                    user_name = :user_name, user_mobile = :user_mobile, user_email = :user_email, user_address = :user_address, user_img = :user_img, user_status = :user_status, password = :password, user_about = :user_about";
 
         $stmt = $this->conn->prepare($query);
 
@@ -64,6 +71,8 @@ class Users
         $this->user_status = htmlspecialchars(strip_tags($this->user_status));
         // $this->user_addon = htmlspecialchars(strip_tags($this->user_addon));
         $this->password = htmlspecialchars(strip_tags($this->password));
+        $this->user_about = htmlspecialchars(strip_tags($this->user_about));
+
 
         $stmt->bindParam(':user_name', $this->user_name);
         $stmt->bindParam(':user_mobile', $this->user_mobile);
@@ -71,6 +80,7 @@ class Users
         $stmt->bindParam(':user_address', $this->user_address);
         $stmt->bindParam(':user_img', $this->user_img);
         $stmt->bindParam(':user_status', $this->user_status);
+        $stmt->bindParam(':user_about', $this->user_about);
         // $stmt->bindParam(':user_addon', $this->user_addon);
         $password_hash = password_hash($this->password, PASSWORD_BCRYPT);
         $stmt->bindParam(':password', $password_hash);
@@ -86,7 +96,7 @@ class Users
     {
         $query = "UPDATE
                     " . $this->tableName . "
-                SET user_name = :user_name, user_address = :user_address, user_email = :user_email, user_about = :user_about WHERE user_mobile = :user_mobile";
+                SET user_name = :user_name, user_address = :user_address, user_email = :user_email, user_about = :user_about, card_number = :card_number, card_expiry = :card_expiry, cvc = :cvc WHERE user_mobile = :user_mobile";
         $stmt = $this->conn->prepare($query);
         // sanitize the data
         $this->user_mobile = htmlspecialchars(strip_tags($this->user_mobile));
@@ -94,12 +104,21 @@ class Users
         $this->user_address = htmlspecialchars(strip_tags($this->user_address));
         $this->user_email = htmlspecialchars(strip_tags($this->user_email));
         $this->user_about = htmlspecialchars(strip_tags($this->user_about));
+        $this->card_number = htmlspecialchars(strip_tags($this->card_number));
+        $this->card_expiry = htmlspecialchars(strip_tags($this->card_expiry));
+        $this->cvc = htmlspecialchars(strip_tags($this->cvc));
+
         // new user values go here
         $stmt->bindParam(':user_mobile', $this->user_mobile);
         $stmt->bindParam(':user_name', $this->user_name);
         $stmt->bindParam(':user_address', $this->user_address);
         $stmt->bindParam(':user_email', $this->user_email);
         $stmt->bindParam(':user_about', $this->user_about);
+        $stmt->bindParam(':card_number', $this->card_number);
+        $stmt->bindParam(':card_expiry', $this->card_expiry);
+        $stmt->bindParam(':cvc', $this->cvc);
+
+
 
 
         if ($stmt->execute()) {
