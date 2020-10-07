@@ -4,6 +4,7 @@ class Users
     private $conn;
     private $tableName = 'users';
     private $bookingTable = 'bookings';
+    private $favoriteTable = 'favorites';
 
     public $user_id;
     public $user_name;
@@ -30,6 +31,14 @@ class Users
     public $cost;
     public $booking_image;
 
+    //creating favorites variables
+
+    public $favorite_id;
+    public $favorite_image;
+    public $favorite;
+    public $favorite_name;
+    public $favorite_description;
+
 
 
 
@@ -38,6 +47,9 @@ class Users
     {
         $this->conn = $db;
     }
+
+
+    // ==============================MANAGING USER OPERATIONS====================================
     function read()
     {
         $query = "SELECT * FROM " . $this->tableName;
@@ -48,10 +60,10 @@ class Users
 
     function readOne()
     {
-        $query = "SELECT * FROM " . $this->tableName . " WHERE user_mobile = ? LIMIT 0,1";
+        $query = "SELECT * FROM " . $this->tableName . " WHERE user_id = ? LIMIT 0,1";
         $stmt = $this->conn->prepare($query);
 
-        $stmt->bindParam(1, $this->user_mobile);
+        $stmt->bindParam(1, $this->user_id);
         $stmt->execute();
 
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -75,7 +87,7 @@ class Users
 
         $query = "INSERT INTO " . $this->tableName . " 
                     SET 
-                    user_name = :user_name, user_mobile = :user_mobile, user_email = :user_email, user_address = :user_address, user_img = :user_img, user_status = :user_status, password = :password, user_about = :user_about";
+                    user_name = :user_name, user_mobile = :user_mobile, user_email = :user_email, user_address = :user_address, user_img = :user_img, user_status = :user_status, password = :password, user_about = :user_about, card_number = :card_number, card_expiry = :card_expiry, cvc = :cvc";
 
         $stmt = $this->conn->prepare($query);
 
@@ -85,9 +97,11 @@ class Users
         $this->user_address = htmlspecialchars(strip_tags($this->user_address));
         $this->user_img = htmlspecialchars(strip_tags($this->user_img));
         $this->user_status = htmlspecialchars(strip_tags($this->user_status));
-        // $this->user_addon = htmlspecialchars(strip_tags($this->user_addon));
         $this->password = htmlspecialchars(strip_tags($this->password));
         $this->user_about = htmlspecialchars(strip_tags($this->user_about));
+        $this->card_number = htmlspecialchars(strip_tags($this->card_number));
+        $this->card_expiry = htmlspecialchars(strip_tags($this->card_expiry));
+        $this->cvc = htmlspecialchars(strip_tags($this->cvc));
 
 
         $stmt->bindParam(':user_name', $this->user_name);
@@ -97,7 +111,9 @@ class Users
         $stmt->bindParam(':user_img', $this->user_img);
         $stmt->bindParam(':user_status', $this->user_status);
         $stmt->bindParam(':user_about', $this->user_about);
-        // $stmt->bindParam(':user_addon', $this->user_addon);
+        $stmt->bindParam(':card_number', $this->card_number);
+        $stmt->bindParam(':card_expiry', $this->card_expiry);
+        $stmt->bindParam(':cvc', $this->cvc);
         $password_hash = password_hash($this->password, PASSWORD_BCRYPT);
         $stmt->bindParam(':password', $password_hash);
 
@@ -142,8 +158,29 @@ class Users
         return false;
     }
 
+    function userExists()
+    {
+        $query = "SELECT * FROM " . $this->tableName . " WHERE user_mobile = ? LIMIT 0,1";
 
-    //USER BOOKING OPERATIONS
+        $this->user_mobile = htmlspecialchars(strip_tags($this->user_mobile));
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->bindParam(1, $this->user_mobile);
+        $stmt->execute();
+        $num = $stmt->rowCount();
+
+        if ($num > 0) {
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            $this->user_id = $row['user_id'];
+            $this->user_name = $row['user_name'];
+            $this->user_mobile = $row['user_mobile'];
+            $this->user_email = $row['user_email'];
+            $this->password = $row['password'];
+            return true;
+        }
+        return false;
+    }
+    //=====================================USER BOOKING OPERATIONS=====================================
     function createUserBooking()
     {
 
@@ -183,8 +220,9 @@ class Users
 
     function readBookings()
     {
-        $query = "SELECT * FROM " . $this->bookingTable;
+        $query = "SELECT * FROM " . $this->bookingTable . " WHERE user_name = ? LIMIT 0,1";
         $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $this->user_name);
         $stmt->execute();
         return $stmt;
     }
@@ -237,26 +275,54 @@ class Users
 
         return false;
     }
-    function userExists()
-    {
-        $query = "SELECT * FROM " . $this->tableName . " WHERE user_mobile = ? LIMIT 0,1";
+    //=====================================FAVORITES OPERATIONS=====================================
 
-        $this->user_mobile = htmlspecialchars(strip_tags($this->user_mobile));
+    function createFavorites()
+    {
+
+        $query = "INSERT INTO " . $this->favoriteTable . " 
+                    SET 
+                    name = :name, user_id = :user_id, favorite = :favorite, image = :image, description = :description";
+
         $stmt = $this->conn->prepare($query);
 
-        $stmt->bindParam(1, $this->user_mobile);
-        $stmt->execute();
-        $num = $stmt->rowCount();
+        $this->favorite_name = htmlspecialchars(strip_tags($this->favorite_name));
+        $this->user_id = htmlspecialchars(strip_tags($this->user_id));
+        $this->favorite_image = htmlspecialchars(strip_tags($this->favorite_image));
+        $this->favorite_description = htmlspecialchars(strip_tags($this->favorite_description));
+        $this->favorite = htmlspecialchars(strip_tags($this->favorite));
 
-        if ($num > 0) {
-            $row = $stmt->fetch(PDO::FETCH_ASSOC);
-            $this->user_id = $row['user_id'];
-            $this->user_name = $row['user_name'];
-            $this->user_mobile = $row['user_mobile'];
-            $this->user_email = $row['user_email'];
-            $this->password = $row['password'];
+        $stmt->bindParam(':name', $this->favorite_name);
+        $stmt->bindParam(':user_id', $this->user_id);
+        $stmt->bindParam(':favorite', $this->favorite);
+        $stmt->bindParam(':image', $this->favorite_image);
+        $stmt->bindParam(':description', $this->favorite_description);
+
+        if ($stmt->execute()) {
             return true;
         }
+        return false;
+    }
+
+    function readFavorites()
+    {
+        $query = "SELECT * FROM " . $this->favoriteTable . " WHERE user_id = ? LIMIT 0,1";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $this->user_id);
+        $stmt->execute();
+        return $stmt;
+    }
+    function deleteFavorites()
+    {
+        $query = "DELETE FROM " . $this->favoriteTable . " WHERE id = ?";
+        $stmt = $this->conn->prepare($query);
+        $this->favorite_id = htmlspecialchars(strip_tags($this->favorite_id));
+
+        $stmt->bindParam(1, $this->favorite_id);
+        if ($stmt->execute()) {
+            return true;
+        }
+
         return false;
     }
 }

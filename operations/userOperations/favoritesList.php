@@ -10,34 +10,28 @@ $database = new CafeDB();
 $db = $database->getConnection();
 
 $details = new Users($db);
-$details->user_name = isset($_GET['user_name']) ? $_GET['user_name'] : die();
+$details->user_id = isset($_GET['user_id']) ? $_GET['user_id'] : die();
 // query users
-$stmt = $details->readBookings();
+$stmt = $details->readFavorites();
 $num = $stmt->rowCount();
 
 // check if more than 0 record found
 if ($num > 0) {
 
     $details_arr = array();
-    $details_arr["bookings"] = array();
+    $details_arr["favorites"] = array();
 
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         extract($row);
         $details_item = array(
-            "id"=>$booking_id,
-            "names" => $user_name,
-            "placeName" => $place_name,
-            "payMode"=> $pay_mode,
-            "date"=> $date,
-            "complementary" => $complementary,
-            "cancelled" => $cancelled,
-            "status"=>$status,
-            "cost"=>$cost,
-            "reservations"=>$reservations,
-            "image"=>$image
+            "id"=>$id,
+            "name" => $name,
+            "description" => $description,
+            "userId"=> $user_id,
+            "favorite"=> $favorite,
         );
 
-        array_push($details_arr['bookings'], $details_item);
+        array_push($details_arr['favorites'], $details_item);
     }
 
     http_response_code(200);
@@ -45,7 +39,7 @@ if ($num > 0) {
 } else {
     http_response_code(404);
     echo json_encode(
-        array("message" => "No user found.")
+        array("message" => "No Favorites found.")
     );
 }
   

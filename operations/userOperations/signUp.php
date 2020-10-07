@@ -13,6 +13,7 @@ $database = new CafeDB();
 $db = $database->getConnection();
 $user = new Users($db);
 $userData = json_decode(file_get_contents("php://input"));
+$pdo = $database->conn;
 
 //gets the json data and logs in a user if they are available in database
 
@@ -30,10 +31,20 @@ if (
     $user->user_img = "";
     $user->user_status = "0";
     $user->user_about="";
+    $user->card_number="";
+    $user->card_expiry="";
+    $user->cvc="";
 
     if ($user->createUser()) {
         http_response_code(201);
-        echo json_encode(array("message" => "User was created."));
+        echo json_encode(
+            array(
+                "message" => "User was created.",
+                "id"=>$pdo->lastInsertId(),
+                "names"=>$userData->names
+                )
+        );
+
     } else {
         http_response_code(404);
         echo json_encode(array("message" => "an error encountered when creating user"));

@@ -16,29 +16,24 @@ $userData = json_decode(file_get_contents("php://input"));
 
 
 if (
-    !empty($userData->names) &&
-    !empty($userData->placeName) &&
-    !empty($userData->cost) && 
-    !empty($userData->reservations)&&
-    !empty($userData->image)
+    !empty($userData->name) &&
+    !empty($userData->favorite) && 
+    !empty($userData->description)&&
+    !empty($userData->image)&&
+    !empty($userData->userId)
 ) {
-    $user->user_name = $userData->names;
-    $user->place_name = $userData->placeName;
-    $user->payMode = "PayUmoney";
-    $user->complementary = "1";
-    $user->cancelled = "0";
-    $user->status = "0";
-    $user->cost = $userData->cost;
-    $user->reservations = $userData->reservations;
-    $user->booking_image = $userData->image;
+    $user->favorite_name = $userData->name;
+    $user->favorite_image = $userData->image;
+    $user->favorite_description = $userData->description;
+    $user->favorite = $userData->favorite;
+    $user->user_id = $userData->userId;
 
-
-    if ($user->createUserBooking()) {
+    if ($user->createFavorites()) {
         http_response_code(201);
-        echo json_encode(array("message" => "booking was created."));
+        echo json_encode(array("message" => "favorite item was created."));
     } else {
         http_response_code(404);
-        echo json_encode(array("message" => "an error encountered when creating user"));
+        echo json_encode(array("message" => "an error encountered when adding to favorites"));
     }
 } else {
     http_response_code(503);
