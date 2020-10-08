@@ -220,9 +220,10 @@ class Users
 
     function readBookings()
     {
-        $query = "SELECT * FROM " . $this->bookingTable . " WHERE user_name = ? LIMIT 0,1";
+        $query = "SELECT * FROM " . $this->bookingTable . " WHERE user_name = :user_name";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(1, $this->user_name);
+        // $stmt->bindParam(1, $this->user_name);
+        $stmt->bindParam(':user_name', $this->user_name);
         $stmt->execute();
         return $stmt;
     }
@@ -306,9 +307,10 @@ class Users
 
     function readFavorites()
     {
-        $query = "SELECT * FROM " . $this->favoriteTable . " WHERE user_id = ? LIMIT 0,1";
+        $query = "SELECT * FROM " . $this->favoriteTable . " WHERE user_id = :user_id";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(1, $this->user_id);
+        $stmt->bindParam(':user_id', $this->user_id);
+        // $stmt->bindParam(1, $this->user_id);
         $stmt->execute();
         return $stmt;
     }
