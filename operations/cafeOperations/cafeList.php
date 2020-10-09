@@ -43,7 +43,8 @@ if ($num > 0) {
             "information"=>$information,
             "reservation"=>$full_reservation,
             "individual_booking"=>$individual_booking,
-            "capacity"=>$capacity
+            "capacity"=>$capacity,
+            "trending"=>$trending
         );
 
         array_push($details_arr['cafes'], $details_item);

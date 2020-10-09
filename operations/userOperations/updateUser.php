@@ -16,7 +16,7 @@ $db = $database->getConnection();
 $user = new Users($db);
 
 $data = json_decode(file_get_contents("php://input"));
-$user->user_mobile = $data->phone;
+
 
 // set product property values
 $user->user_id = $data->id;
@@ -28,7 +28,6 @@ $user->user_email = $data->email;
 $user->card_number = $data->cardNumber;
 $user->card_expiry = $data->cardExpiry;
 $user->cvc = $data->cvc;
-
 
 // update the product
 if ($user->updateUser()) {

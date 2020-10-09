@@ -29,6 +29,7 @@ if ($num > 0) {
             "description" => $description,
             "userId"=> $user_id,
             "favorite"=> $favorite,
+            "image"=>$image
         );
 
         array_push($details_arr['favorites'], $details_item);
