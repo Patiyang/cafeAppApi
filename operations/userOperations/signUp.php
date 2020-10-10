@@ -17,14 +17,14 @@ $pdo = $database->conn;
 //gets the json data and logs in a user if they are available in database
 
 if (
-    !empty($userData->names) &&
-    !empty($userData->email) &&
+    // !empty($userData->names) &&
+    // !empty($userData->email) &&
     !empty($userData->password) &&
     !empty($userData->phone)
 ) {
-    $user->user_name = $userData->names;
+    $user->user_name = "";
     $user->password = $userData->password;
-    $user->user_email = $userData->email;
+    $user->user_email = "";
     $user->user_mobile = $userData->phone;
     $user->user_address = "";
     $user->user_img = "";
@@ -40,7 +40,7 @@ if (
             array(
                 "message" => "User was created.",
                 "id"=>$pdo->lastInsertId(),
-                "names"=>$userData->names
+                // "names"=>$userData->names
                 )
         );
 

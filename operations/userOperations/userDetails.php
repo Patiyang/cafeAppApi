@@ -21,7 +21,7 @@ $details->readOne();
 $details_arr = array();
 $details_arr["user"] = array();
 
-if($details->user_name!=null){
+if($details->user_id!=null){
     $details_item = array(
         "id" =>  $details->user_id,
         "userName" => $details->user_name,

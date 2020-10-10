@@ -22,6 +22,7 @@ class CafeOwner
     public $status;
     public $cafe_filter;
     public $trending;
+    public $category;
 
 //getting all of the cafe images
 public $image_id;
