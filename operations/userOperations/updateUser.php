@@ -19,7 +19,7 @@ $data = json_decode(file_get_contents("php://input"));
 
 
 // set product property values
-$user->user_id = $data->id;
+// $user->user_id = $data->id;
 $user->user_mobile = $data->phone;
 $user->user_name = $data->name;
 $user->user_address = $data->address;

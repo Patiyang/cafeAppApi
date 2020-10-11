@@ -16,7 +16,7 @@ $db = $database->getConnection();
 $user = new Users($db);
 
 $data = json_decode(file_get_contents("php://input"));
-$user->booking_id = $data->id;
+$user->user_mobile = $data->phone;
 // set product property values
 // $user->user_mobile = $data->phone;
 

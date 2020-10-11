@@ -16,13 +16,13 @@ $userData = json_decode(file_get_contents("php://input"));
 
 
 if (
-    !empty($userData->names) &&
+    !empty($userData->phone) &&
     !empty($userData->placeName) &&
     !empty($userData->cost) && 
     !empty($userData->reservations)&&
     !empty($userData->image)
 ) {
-    $user->user_name = $userData->names;
+    $user->user_mobile = $userData->phone;
     $user->place_name = $userData->placeName;
     $user->payMode = "PayUmoney";
     $user->complementary = "1";

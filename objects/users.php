@@ -128,10 +128,10 @@ class Users
     {
         $query = "UPDATE
                     " . $this->tableName . "
-                SET user_name = :user_name, user_address = :user_address, user_email = :user_email, user_about = :user_about, card_number = :card_number, card_expiry = :card_expiry, cvc = :cvc, user_mobile = :user_mobile WHERE user_id = :user_id";
+                SET user_name = :user_name, user_address = :user_address, user_email = :user_email, user_about = :user_about, card_number = :card_number, card_expiry = :card_expiry, cvc = :cvc WHERE user_mobile = :user_mobile";
         $stmt = $this->conn->prepare($query);
         // sanitize the data
-        $this->user_id = htmlspecialchars(strip_tags($this->user_id));
+        // $this->user_id = htmlspecialchars(strip_tags($this->user_id));
         $this->user_mobile = htmlspecialchars(strip_tags($this->user_mobile));
         $this->user_name = htmlspecialchars(strip_tags($this->user_name));
         $this->user_address = htmlspecialchars(strip_tags($this->user_address));
@@ -142,7 +142,7 @@ class Users
         $this->cvc = htmlspecialchars(strip_tags($this->cvc));
 
         // new user values go here
-        $stmt->bindParam(':user_id', $this->user_id);
+        // $stmt->bindParam(':user_id', $this->user_id);
         $stmt->bindParam(':user_mobile', $this->user_mobile);
         $stmt->bindParam(':user_name', $this->user_name);
         $stmt->bindParam(':user_address', $this->user_address);
@@ -186,11 +186,11 @@ class Users
 
         $query = "INSERT INTO " . $this->bookingTable . " 
                     SET 
-                    user_name = :user_name,place_name = :place_name, pay_mode = :pay_mode, complementary = :complementary, cancelled = :cancelled, status = :status, cost = :cost, reservations = :reservations, image = :image";
+                    user_mobile = :user_mobile,place_name = :place_name, pay_mode = :pay_mode, complementary = :complementary, cancelled = :cancelled, status = :status, cost = :cost, reservations = :reservations, image = :image";
 
         $stmt = $this->conn->prepare($query);
 
-        $this->user_name = htmlspecialchars(strip_tags($this->user_name));
+        $this->user_mobile = htmlspecialchars(strip_tags($this->user_mobile));
         $this->place_name = htmlspecialchars(strip_tags($this->place_name));
         $this->payMode = htmlspecialchars(strip_tags($this->payMode));
         $this->complementary = htmlspecialchars(strip_tags($this->complementary));
@@ -200,7 +200,7 @@ class Users
         $this->reservations = htmlspecialchars(strip_tags($this->reservations));
         $this->booking_image = htmlspecialchars(strip_tags($this->booking_image));
 
-        $stmt->bindParam(':user_name', $this->user_name);
+        $stmt->bindParam(':user_mobile', $this->user_mobile);
         $stmt->bindParam(':place_name', $this->place_name);
         $stmt->bindParam(':pay_mode', $this->payMode);
         $stmt->bindParam(':complementary', $this->complementary);
@@ -209,8 +209,6 @@ class Users
         $stmt->bindParam(':cost', $this->cost);
         $stmt->bindParam(':reservations', $this->reservations);
         $stmt->bindParam(':image', $this->booking_image);
-
-
 
         if ($stmt->execute()) {
             return true;
@@ -233,27 +231,14 @@ class Users
     {
         $query = "UPDATE
         " . $this->bookingTable . "
-    SET reservations = :reservations, cost = :cost WHERE booking_id = :booking_id";
+    SET reservations = :reservations, cost = :cost WHERE user_mobile = :user_mobile";
         $stmt = $this->conn->prepare($query);
         // sanitize the data
         $this->booking_id = htmlspecialchars(strip_tags($this->booking_id));
-        // $this->place_name = htmlspecialchars(strip_tags($this->place_name));
-        // $this->user_name = htmlspecialchars(strip_tags($this->user_name));
-        // $this->payMode = htmlspecialchars(strip_tags($this->payMode));
-        // $this->complementary = htmlspecialchars(strip_tags($this->complementary));
-        // $this->cancelled = htmlspecialchars(strip_tags($this->cancelled));
-        // $this->status = htmlspecialchars(strip_tags($this->status));
         $this->reservations = htmlspecialchars(strip_tags($this->reservations));
         $this->cost = htmlspecialchars(strip_tags($this->cost));
 
-        // new user values go here
-        $stmt->bindParam(':booking_id', $this->booking_id);
-        // $stmt->bindParam(':place_name', $this->place_name);
-        // $stmt->bindParam(':user_name', $this->user_name);
-        // $stmt->bindParam(':user_address', $this->payMode);
-        // $stmt->bindParam(':complementary', $this->complementary);
-        // $stmt->bindParam(':cancelled', $this->cancelled);
-        // $stmt->bindParam(':status', $this->status);
+        $stmt->bindParam(':user_mobile', $this->user_mobile);
         $stmt->bindParam(':reservations', $this->reservations);
         $stmt->bindParam(':cost', $this->cost);
 
@@ -283,18 +268,18 @@ class Users
 
         $query = "INSERT INTO " . $this->favoriteTable . " 
                     SET 
-                    name = :name, user_id = :user_id, favorite = :favorite, image = :image, description = :description";
+                    name = :name, user_mobile = :user_mobile, favorite = :favorite, image = :image, description = :description";
 
         $stmt = $this->conn->prepare($query);
 
         $this->favorite_name = htmlspecialchars(strip_tags($this->favorite_name));
-        $this->user_id = htmlspecialchars(strip_tags($this->user_id));
+        $this->user_mobile = htmlspecialchars(strip_tags($this->user_mobile));
         $this->favorite_image = htmlspecialchars(strip_tags($this->favorite_image));
         $this->favorite_description = htmlspecialchars(strip_tags($this->favorite_description));
         $this->favorite = htmlspecialchars(strip_tags($this->favorite));
 
         $stmt->bindParam(':name', $this->favorite_name);
-        $stmt->bindParam(':user_id', $this->user_id);
+        $stmt->bindParam(':user_mobile', $this->user_mobile);
         $stmt->bindParam(':favorite', $this->favorite);
         $stmt->bindParam(':image', $this->favorite_image);
         $stmt->bindParam(':description', $this->favorite_description);
@@ -307,9 +292,9 @@ class Users
 
     function readFavorites()
     {
-        $query = "SELECT * FROM " . $this->favoriteTable . " WHERE user_id = :user_id";
+        $query = "SELECT * FROM " . $this->favoriteTable . " WHERE user_mobile = :user_mobile";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':user_id', $this->user_id);
+        $stmt->bindParam(':user_mobile', $this->user_mobile);
         $stmt->execute();
         return $stmt;
     }

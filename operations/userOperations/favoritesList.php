@@ -10,8 +10,8 @@ $database = new CafeDB();
 $db = $database->getConnection();
 
 $details = new Users($db);
-$details->user_id = isset($_GET['user_id']) ? $_GET['user_id'] : die();
-// query users
+$details->user_mobile = isset($_GET['user_mobile']) ? $_GET['user_mobile'] : die();
+
 $stmt = $details->readFavorites();
 $num = $stmt->rowCount();
 
@@ -27,7 +27,7 @@ if ($num > 0) {
             "id"=>$id,
             "name" => $name,
             "description" => $description,
-            "userId"=> $user_id,
+            "phone"=> $user_mobile,
             "favorite"=> $favorite,
             "image"=>$image
         );

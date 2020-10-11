@@ -20,13 +20,13 @@ if (
     !empty($userData->favorite) && 
     !empty($userData->description)&&
     !empty($userData->image)&&
-    !empty($userData->userId)
+    !empty($userData->phone)
 ) {
     $user->favorite_name = $userData->name;
     $user->favorite_image = $userData->image;
     $user->favorite_description = $userData->description;
     $user->favorite = $userData->favorite;
-    $user->user_id = $userData->userId;
+    $user->user_mobile = $userData->phone;
 
     if ($user->createFavorites()) {
         http_response_code(201);
