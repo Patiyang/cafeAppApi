@@ -60,7 +60,7 @@ class Users
 
     function readOne()
     {
-        $query = "SELECT * FROM " . $this->tableName . " WHERE user_id = ? LIMIT 0,1";
+        $query = "SELECT * FROM " . $this->tableName . " WHERE user_mobile = ? LIMIT 0,1";
         $stmt = $this->conn->prepare($query);
 
         $stmt->bindParam(1, $this->user_id);

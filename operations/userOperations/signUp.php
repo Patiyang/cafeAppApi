@@ -19,34 +19,38 @@ $pdo = $database->conn;
 if (
     // !empty($userData->names) &&
     // !empty($userData->email) &&
-    !empty($userData->password) &&
+    // !empty($userData->password) &&
     !empty($userData->phone)
 ) {
     $user->user_name = "";
-    $user->password = $userData->password;
+    $user->password = "";
     $user->user_email = "";
     $user->user_mobile = $userData->phone;
     $user->user_address = "";
     $user->user_img = "";
     $user->user_status = "0";
-    $user->user_about="";
-    $user->card_number="";
-    $user->card_expiry="";
-    $user->cvc="";
+    $user->user_about = "";
+    $user->card_number = "";
+    $user->card_expiry = "";
+    $user->cvc = "";
 
     if ($user->createUser()) {
         http_response_code(201);
         echo json_encode(
             array(
                 "message" => "User was created.",
-                "id"=>$pdo->lastInsertId(),
-                // "names"=>$userData->names
-                )
+                "id" => $pdo->lastInsertId(),
+                "phone" => $userData->phone
+            )
         );
-
     } else {
         http_response_code(404);
-        echo json_encode(array("message" => "an error encountered when creating user"));
+        echo json_encode(
+            array(
+                "message" => "the user exists already", 
+                "phone" => $userData->phone
+            )
+        );
     }
 } else {
     http_response_code(503);

@@ -15,7 +15,7 @@ $database = new CafeDB();
 $db = $database->getConnection();
 $details = new Users($db);
   
-$details->user_id = isset($_GET['user_id']) ? $_GET['user_id'] : die();
+$details->user_id = isset($_GET['user_mobile']) ? $_GET['user_mobile'] : die();
   
 $details->readOne();
 $details_arr = array();
