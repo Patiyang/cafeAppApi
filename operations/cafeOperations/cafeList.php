@@ -25,13 +25,14 @@ if ($num > 0) {
         extract($row);
         $details_item = array(
             "cafeid" => $cafe_id,
-            "names" => $owner_name,
+            "cafeName" => $cafe_name,
+            "ownerName"=>$owner_name,
             "password"=> $owner_pass,
             "emailAddress" => $owner_email,
             "mobilePhone" => $owner_mob,
             "payment"=>$owner_upi,
             "location"=>$location,
-            "cafe_cost"=>$cafe_cost,
+            "cost"=>$cost,
             "description"=>$description,
             "service_area"=>$service_area,
             "facilities"=>$facilities,
@@ -42,7 +43,7 @@ if ($num > 0) {
             "longitude"=>$longitude,
             "information"=>$information,
             "reservation"=>$full_reservation,
-            "individual_booking"=>$individual_booking,
+            "individual_booking"=>$individual_reservation,
             "capacity"=>$capacity,
             "trending"=>$trending, 
             "category"=>$category

@@ -1,3 +1,5 @@
+
+
 <?php
 
 header("Access-Control-Allow-Origin: *");
@@ -25,16 +27,25 @@ if (
     $user->owner_pass = $userData->owner_pass;
     $user->owner_email = $userData->owner_email;
     $user->owner_mob = $userData->owner_mob;
-    $user->cafe_name = "";
-    $user->owner_upi = "";
-    $user->location = "";
-    $user->cafe_cost = 0;
-    $user->description = "";
+    $user->cafe_name = $userData->cafeName;
+    $user->owner_upi = $userData->owner_upi;
+    $user->location = $userData->location;
+    $user->cost = $userData->cost;
+    $user->description = $userData->description;
     $user->service_area = 0;
-    $user->facilities = "";
-    $user->primary_image = "";
-    $user->secondary = "";
+    $user->facilities = $userData->facilities;
+    $user->primary_image = $userData->primary_image;
+    $user->secondary = $userData->secondary;
     $user->status = 0;
+    $user->longitude = $userData->longitude;
+    $user->latitude = $userData->latitude;
+    $user->capacity = $userData->capacity;
+    $user->trending = $userData->trending;
+    $user->full_reservation = $userData->fullReservation;
+    $user->individual_reservation = $userData->individaulReservation;
+    $user->information = $userData->information;
+    $user->category = $userData->category;
+    $user->cuisine = $userData->cuisine;
 
     if ($user->create()) {
         http_response_code(201);

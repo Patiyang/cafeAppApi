@@ -15,16 +15,16 @@ $database = new CafeDB();
 $db = $database->getConnection();
 $details = new CafeOwner($db);
 
-$details->cafe_owner = isset($_GET['cafe_owner']) ? $_GET['cafe_owner'] : die();
+$details->cafe_name = isset($_GET['cafe_name']) ? $_GET['cafe_name'] : die();
 
 $details->readCafeImages();
 $details_arr = array();
 $details_arr["images"] = array();
 
-if ($details->cafe_owner != null) {
+if ($details->cafe_name != null) {
     $details_item = array(
         "id" =>  $details->image_id,
-        "userName" => $details->cafe_owner,
+        "userName" => $details->cafe_name,
         "image_1" => $details->image_1,
         "image_2" => $details->image_2,
         "image_3" => $details->image_3,

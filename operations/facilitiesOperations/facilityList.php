@@ -28,7 +28,7 @@ if ($num > 0) {
             "id" => $id,
             "name" => $name,
             // "description"=> $description,
-            // "image" => $image,
+            "image" => $image,
             // "restaurants" => $restaurants
         );
 
