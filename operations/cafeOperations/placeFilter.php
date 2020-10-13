@@ -14,38 +14,44 @@ $cafeOwner = new CafeOwner($db);
 
 $data = json_decode(file_get_contents("php://input"));
 $cafeOwner->cafe_filter = $data->query;
-$stmt = $cafeOwner->readCuisineFilter();
+$stmt = $cafeOwner->Filter();
 $num = $stmt->rowCount();
 
 // check if more than 0 record found
 if ($num > 0) {
 
     $details_arr = array();
-    $details_arr["dishes"] = array();
+    $details_arr["places"] = array();
 
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         extract($row);
         $details_item = array(
             "cafeid" => $cafe_id,
-            "names" => $owner_name,
-            "password"=> $owner_pass,
+            "cafeName" => $cafe_name,
+            "ownerName" => $owner_name,
+            "password" => $owner_pass,
             "emailAddress" => $owner_email,
             "mobilePhone" => $owner_mob,
-            "payment"=>$owner_upi,
-            "location"=>$location,
-            "cafe_cost"=>$cafe_cost,
-            "description"=>$description,
-            "service_area"=>$service_area,
-            "facilities"=>$facilities,
-            "primary_image"=>$primary_image,
-            "secondary"=>$primary_image,
-            "status"=>$status,
-            "latitude"=>$latitude,
-            "longitude"=>$longitude,
-            "cuisine"=>$cuisine
+            "payment" => $owner_upi,
+            "location" => $location,
+            "cost" => $cost,
+            "description" => $description,
+            "service_area" => $service_area,
+            "facilities" => $facilities,
+            "primary_image" => $primary_image,
+            "secondary" => $primary_image,
+            "status" => $status,
+            "latitude" => $latitude,
+            "longitude" => $longitude,
+            "information" => $information,
+            "reservation" => $full_reservation,
+            "individual_booking" => $individual_reservation,
+            "capacity" => $capacity,
+            "trending" => $trending,
+            "category" => $category
         );
 
-        array_push($details_arr['dishes'], $details_item);
+        array_push($details_arr['places'], $details_item);
     }
 
     http_response_code(200);
@@ -53,8 +59,6 @@ if ($num > 0) {
 } else {
     http_response_code(404);
     echo json_encode(
-        array("message" => "No dishes found.")
+        array("message" => "No places found.")
     );
 }
-  
-

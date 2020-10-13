@@ -10,7 +10,7 @@ $database = new CafeDB();
 $db = $database->getConnection();
 
 $details = new Users($db);
-$details->user_name = isset($_GET['user_name']) ? $_GET['user_name'] : die();
+$details->user_mobile = isset($_GET['user_mobile']) ? $_GET['user_mobile'] : die();
 // query users
 $stmt = $details->readBookings();
 $num = $stmt->rowCount();
@@ -25,7 +25,7 @@ if ($num > 0) {
         extract($row);
         $details_item = array(
             "id"=>$booking_id,
-            "names" => $user_name,
+            "phone" => $user_mobile,
             "placeName" => $place_name,
             "payMode"=> $pay_mode,
             "date"=> $date,

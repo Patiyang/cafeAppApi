@@ -66,7 +66,7 @@ class CafeOwner
         $stmt->execute();
         return $stmt;
     }
-    function readCuisineFilter()
+    function Filter()
     {
         $filterQuery = htmlspecialchars(strip_tags($this->cafe_filter));
 
