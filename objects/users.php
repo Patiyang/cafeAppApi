@@ -19,6 +19,7 @@ class Users
     public $card_number;
     public $cvc;
     public $card_expiry;
+    public $profilePicture;
 
     //creating booking variables
     public $booking_id;
@@ -128,7 +129,7 @@ class Users
     {
         $query = "UPDATE
                     " . $this->tableName . "
-                SET user_name = :user_name, user_address = :user_address, user_email = :user_email, user_about = :user_about, card_number = :card_number, card_expiry = :card_expiry, cvc = :cvc WHERE user_mobile = :user_mobile";
+                SET user_name = :user_name, user_address = :user_address, user_email = :user_email, user_about = :user_about, card_number = :card_number, card_expiry = :card_expiry, cvc = :cvc, user_img = :profilePicture WHERE user_mobile = :user_mobile";
         $stmt = $this->conn->prepare($query);
         // sanitize the data
         // $this->user_id = htmlspecialchars(strip_tags($this->user_id));
@@ -140,6 +141,7 @@ class Users
         $this->card_number = htmlspecialchars(strip_tags($this->card_number));
         $this->card_expiry = htmlspecialchars(strip_tags($this->card_expiry));
         $this->cvc = htmlspecialchars(strip_tags($this->cvc));
+        $this->profilePicture = htmlspecialchars(strip_tags($this->profilePicture));
 
         // new user values go here
         // $stmt->bindParam(':user_id', $this->user_id);
@@ -151,6 +153,7 @@ class Users
         $stmt->bindParam(':card_number', $this->card_number);
         $stmt->bindParam(':card_expiry', $this->card_expiry);
         $stmt->bindParam(':cvc', $this->cvc);
+        $stmt->bindParam(':profilePicture', $this->profilePicture);
 
         if ($stmt->execute()) {
             return true;
