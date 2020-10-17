@@ -223,7 +223,6 @@ class Users
     {
         $query = "SELECT * FROM " . $this->bookingTable . " WHERE user_mobile = :user_mobile";
         $stmt = $this->conn->prepare($query);
-        // $stmt->bindParam(1, $this->user_name);
         $stmt->bindParam(':user_mobile', $this->user_mobile);
         $stmt->execute();
         return $stmt;

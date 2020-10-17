@@ -120,6 +120,14 @@ class CafeOwner
         $this->image_14 = $row['image_14'];
         $this->image_15 = $row['image_15'];
     }
+    function readPlaceMenu()
+    {
+        $query = "SELECT * FROM " . $this->bookingTable . " WHERE owner_mob = :owner_mob";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':owner_mob', $this->owner_mob);
+        $stmt->execute();
+        return $stmt;
+    }
     //gets a single cafe
     function readOne()
     {
