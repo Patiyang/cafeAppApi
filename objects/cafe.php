@@ -7,6 +7,7 @@ class CafeOwner
     private $conn;
     private $tableName = 'placeDetails';
     private $imagesTable = 'image_list';
+    private $placeMenu = 'placeMenu';
     //geting the details of a single cafe
     public $cafe_id;
     public $owner_name;
@@ -52,6 +53,14 @@ class CafeOwner
     public $image_13;
     public $image_14;
     public $image_15;
+    //getting the menu details
+    public $menu_id;
+    public $food_image;
+    public $food_name;
+    public $food_description;
+    public $featured_food;
+    
+
 
 
     public function __construct($db)
@@ -93,6 +102,7 @@ class CafeOwner
         $stmt->execute();
         return $stmt;
     }
+    //read the place Images
     function readCafeImages()
     {
         $query = "SELECT * FROM " . $this->imagesTable . " WHERE cafe_name = ? LIMIT 0,1";
@@ -120,9 +130,10 @@ class CafeOwner
         $this->image_14 = $row['image_14'];
         $this->image_15 = $row['image_15'];
     }
+    //read the menu
     function readPlaceMenu()
     {
-        $query = "SELECT * FROM " . $this->bookingTable . " WHERE owner_mob = :owner_mob";
+        $query = "SELECT * FROM " . $this->placeMenu . " WHERE owner_mob = :owner_mob";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':owner_mob', $this->owner_mob);
         $stmt->execute();

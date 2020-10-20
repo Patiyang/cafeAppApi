@@ -30,9 +30,6 @@ $user->card_expiry = $data->cardExpiry;
 $user->cvc = $data->cvc;
 $user->profilePicture = $data->image;
 
-$image_name= $_FILES['image']['tmp_name'];
-move_uploaded_file($data->image,'../../');
-
 // update the product
 if ($user->updateUser()) {
     http_response_code(200);

@@ -27,10 +27,13 @@ if ($num > 0) {
             "id"=>$menu_id,
             "phoneNumber" => $owner_mob,
             "foodName" => $food_name,
-            "image"=> $food_image,
+            "image"=> $food_Image,
             "description"=> $food_description,
             "cuisine" => $cuisine,
-            "featured" => $featured
+            "featured" => $featured, 
+            "price"=>$price,
+            "type"=>$type,
+            "ingredients"=>$ingredients
         );
 
         array_push($details_arr['menuItems'], $details_item);
@@ -45,3 +48,4 @@ if ($num > 0) {
     );
 }
   
+

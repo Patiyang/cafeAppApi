@@ -223,6 +223,7 @@ class Users
     {
         $query = "SELECT * FROM " . $this->bookingTable . " WHERE user_mobile = :user_mobile";
         $stmt = $this->conn->prepare($query);
+        // $stmt->bindParam(1, $this->user_name);
         $stmt->bindParam(':user_mobile', $this->user_mobile);
         $stmt->execute();
         return $stmt;
@@ -233,14 +234,14 @@ class Users
     {
         $query = "UPDATE
         " . $this->bookingTable . "
-    SET reservations = :reservations, cost = :cost WHERE user_mobile = :user_mobile";
+    SET reservations = :reservations, cost = :cost WHERE booking_id = :booking_id";
         $stmt = $this->conn->prepare($query);
         // sanitize the data
         $this->booking_id = htmlspecialchars(strip_tags($this->booking_id));
         $this->reservations = htmlspecialchars(strip_tags($this->reservations));
         $this->cost = htmlspecialchars(strip_tags($this->cost));
 
-        $stmt->bindParam(':user_mobile', $this->user_mobile);
+        $stmt->bindParam(':booking_id', $this->booking_id);
         $stmt->bindParam(':reservations', $this->reservations);
         $stmt->bindParam(':cost', $this->cost);
 

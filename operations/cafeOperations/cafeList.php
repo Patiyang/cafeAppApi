@@ -26,27 +26,27 @@ if ($num > 0) {
         $details_item = array(
             "cafeid" => $cafe_id,
             "cafeName" => $cafe_name,
-            "ownerName" => $owner_name,
-            "password" => $owner_pass,
+            "ownerName"=>$owner_name,
+            "password"=> $owner_pass,
             "emailAddress" => $owner_email,
             "mobilePhone" => $owner_mob,
-            "payment" => $owner_upi,
-            "location" => $location,
-            "cost" => $cost,
-            "description" => $description,
-            "service_area" => $service_area,
-            "facilities" => $facilities,
-            "primary_image" => $primary_image,
-            "secondary" => $primary_image,
-            "status" => $status,
-            "latitude" => $latitude,
-            "longitude" => $longitude,
-            "information" => $information,
-            "reservation" => $full_reservation,
-            "individual_booking" => $individual_reservation,
-            "capacity" => $capacity,
-            "trending" => $trending,
-            "category" => $category, 
+            "payment"=>$owner_upi,
+            "location"=>$location,
+            "cost"=>$cost,
+            "description"=>$description,
+            "service_area"=>$service_area,
+            "facilities"=>$facilities,
+            "primary_image"=>$primary_image,
+            "secondary"=>$primary_image,
+            "status"=>$status,
+            "latitude"=>$latitude,
+            "longitude"=>$longitude,
+            "information"=>$information,
+            "reservation"=>$full_reservation,
+            "individual_booking"=>$individual_reservation,
+            "capacity"=>$capacity,
+            "trending"=>$trending, 
+            "category"=>$category,
             "popular" => $popular,
         );
 
@@ -61,3 +61,5 @@ if ($num > 0) {
         array("message" => "No user found.")
     );
 }
+  
+
