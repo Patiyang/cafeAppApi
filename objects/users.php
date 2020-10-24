@@ -5,6 +5,8 @@ class Users
     private $tableName = 'users';
     private $bookingTable = 'bookings';
     private $favoriteTable = 'favorites';
+    private $foodBookingTable = 'foodBooking';
+    private $orderTable = 'orders';
 
     public $user_id;
     public $user_name;
@@ -40,7 +42,17 @@ class Users
     public $favorite_name;
     public $favorite_description;
 
+    //creating food booking variables
 
+    public $food_id;
+    public $food_name;
+    public $food_image;
+    public $food_description;
+    //creating order variables
+    public $foodTotal;
+    public $reservationCost;
+    public $totalOrder;
+    public $orderStatus;
 
 
 
@@ -264,6 +276,39 @@ class Users
 
         return false;
     }
+    //creating food booking operations
+
+    function createFoodBooking()
+    {
+
+        $query = "INSERT INTO " . $this->foodBookingTable . " 
+                    SET 
+                    userMobile = :user_mobile,placeName = :place_name, foodName = :food_name, cost = :cost, reservations = :reservations, foodDescription = :food_description, image = :image";
+
+        $stmt = $this->conn->prepare($query);
+
+        $this->user_mobile = htmlspecialchars(strip_tags($this->user_mobile));
+        $this->place_name = htmlspecialchars(strip_tags($this->place_name));
+        $this->food_name = htmlspecialchars(strip_tags($this->food_name));
+        $this->cost = htmlspecialchars(strip_tags($this->cost));
+        $this->reservations = htmlspecialchars(strip_tags($this->reservations));
+        $this->food_image = htmlspecialchars(strip_tags($this->food_image));
+        $this->food_description = htmlspecialchars(strip_tags($this->food_description));
+
+        $stmt->bindParam(':user_mobile', $this->user_mobile);
+        $stmt->bindParam(':place_name', $this->place_name);
+        $stmt->bindParam(':food_name', $this->food_name);
+        $stmt->bindParam(':cost', $this->cost);
+        $stmt->bindParam(':reservations', $this->reservations);
+        $stmt->bindParam(':image', $this->food_image);
+        $stmt->bindParam(':food_description', $this->food_description);
+
+
+        if ($stmt->execute()) {
+            return true;
+        }
+        return false;
+    }
     //=====================================FAVORITES OPERATIONS=====================================
 
     function createFavorites()
@@ -312,6 +357,62 @@ class Users
             return true;
         }
 
+        return false;
+    }
+
+    // =========================================CREATE ORDER ==============================================
+
+    function createOrder()
+    {
+
+        $query = "INSERT INTO " . $this->orderTable . " 
+                    SET 
+                    user_mobile = :user_mobile, total = :total, status = :status, foodTotal = :foodTotal, reservationCost = :reservationCost, reservations = :reservations, payMode = :payMode";
+
+        $stmt = $this->conn->prepare($query);
+        $this->user_mobile = htmlspecialchars(strip_tags($this->user_mobile));
+        $this->totalOrder = htmlspecialchars(strip_tags($this->totalOrder));
+        $this->orderStatus = htmlspecialchars(strip_tags($this->orderStatus));
+        $this->foodTotal = htmlspecialchars(strip_tags($this->foodTotal));
+        $this->reservationCost = htmlspecialchars(strip_tags($this->reservationCost));
+        $this->reservations = htmlspecialchars(strip_tags($this->reservations));
+        $this->payMode = htmlspecialchars(strip_tags($this->payMode));
+
+        $stmt->bindParam(':user_mobile', $this->user_mobile);
+        $stmt->bindParam(':total', $this->totalOrder);
+        $stmt->bindParam(':status', $this->orderStatus);
+        $stmt->bindParam(':foodTotal', $this->foodTotal);
+        $stmt->bindParam(':reservationCost', $this->reservationCost);
+        $stmt->bindParam(':reservations', $this->reservations);
+        $stmt->bindParam(':payMode', $this->payMode);
+
+        if ($stmt->execute()) {
+            return true;
+        }
+        return false;
+    }
+    function readOrders()
+    {
+        $query = "SELECT * FROM " . $this->orderTable . " WHERE user_mobile = :user_mobile";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':user_mobile', $this->user_mobile);
+        $stmt->execute();
+        return $stmt;
+    }
+    function updateOrder()
+    {
+        $query = "UPDATE " . $this->orderTable . " SET status = :status WHERE id = :id";
+        $stmt = $this->conn->prepare($query);
+        // sanitize the data
+        $this->id = htmlspecialchars(strip_tags($this->id));
+        $this->orderStatus = htmlspecialchars(strip_tags($this->orderStatus));
+
+        $stmt->bindParam(':id', $this->id);
+        $stmt->bindParam(':status', $this->orderStatus);
+
+        if ($stmt->execute()) {
+            return true;
+        }
         return false;
     }
 }
