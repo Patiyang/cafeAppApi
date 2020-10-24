@@ -7,6 +7,7 @@ class Users
     private $favoriteTable = 'favorites';
     private $foodBookingTable = 'foodBooking';
     private $orderTable = 'orders';
+    private $completedFoodBooking = 'completedFoods';
 
     public $user_id;
     public $user_name;
@@ -276,7 +277,9 @@ class Users
 
         return false;
     }
-    //creating food booking operations
+  
+    
+    //=========================================COMPLETED FOOD BOOKINGS===========================================
 
     function createFoodBooking()
     {
@@ -309,6 +312,92 @@ class Users
         }
         return false;
     }
+    
+     function readFoodBookings()
+    {
+        $query = "SELECT * FROM " . $this->foodBookingTable . " WHERE userMobile = :user_mobile";
+        $stmt = $this->conn->prepare($query);
+        // $stmt->bindParam(1, $this->user_name);
+        $stmt->bindParam(':user_mobile', $this->user_mobile);
+        $stmt->execute();
+        return $stmt;
+    }
+    function updateFoodBooking()
+    {
+        $query = "UPDATE
+        " . $this->foodBookingTable . "
+    SET reservations = :reservations, cost = :cost WHERE id = :id";
+        $stmt = $this->conn->prepare($query);
+        // sanitize the data
+        $this->booking_id = htmlspecialchars(strip_tags($this->booking_id));
+        $this->reservations = htmlspecialchars(strip_tags($this->reservations));
+        $this->cost = htmlspecialchars(strip_tags($this->cost));
+
+        $stmt->bindParam(':id', $this->id);
+        $stmt->bindParam(':reservations', $this->reservations);
+        $stmt->bindParam(':cost', $this->cost);
+
+        if ($stmt->execute()) {
+            return true;
+        }
+        return false;
+    }
+    function deleteFoodBooking()
+    {
+        $query = "DELETE FROM " . $this->foodBookingTable . " WHERE id = ?";
+        $stmt = $this->conn->prepare($query);
+        $this->id = htmlspecialchars(strip_tags($this->id));
+
+        $stmt->bindParam(1, $this->id);
+        if ($stmt->execute()) {
+            return true;
+        }
+
+        return false;
+    }
+    //=========================================COMPLETED FOOD BOOKING=================================
+    function createCompletedFood()
+    {
+
+        $query = "INSERT INTO " . $this->completedFoodBooking . " 
+                    SET 
+                    id = :id, userMobile = :user_mobile, placeName = :place_name, foodName = :food_name, cost = :cost, reservations = :reservations, foodDescription = :food_description, image = :image";
+
+        $stmt = $this->conn->prepare($query);
+        $this->user_id = htmlspecialchars(strip_tags($this->user_id));
+        $this->user_mobile = htmlspecialchars(strip_tags($this->user_mobile));
+        $this->place_name = htmlspecialchars(strip_tags($this->place_name));
+        $this->food_name = htmlspecialchars(strip_tags($this->food_name));
+        $this->cost = htmlspecialchars(strip_tags($this->cost));
+        $this->reservations = htmlspecialchars(strip_tags($this->reservations));
+        $this->food_image = htmlspecialchars(strip_tags($this->food_image));
+        $this->food_description = htmlspecialchars(strip_tags($this->food_description));
+
+        $stmt->bindParam(':id', $this->user_id);
+        $stmt->bindParam(':user_mobile', $this->user_mobile);
+        $stmt->bindParam(':place_name', $this->place_name);
+        $stmt->bindParam(':food_name', $this->food_name);
+        $stmt->bindParam(':cost', $this->cost);
+        $stmt->bindParam(':reservations', $this->reservations);
+        $stmt->bindParam(':image', $this->food_image);
+        $stmt->bindParam(':food_description', $this->food_description);
+
+
+        if ($stmt->execute()) {
+            return true;
+        }
+        return false;
+    }
+    
+     function readCompletedFoods()
+    {
+        $query = "SELECT * FROM " . $this->completedFoodBooking . " WHERE id = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':id', $this->user_mobile);
+        $stmt->execute();
+        return $stmt;
+    }
+
     //=====================================FAVORITES OPERATIONS=====================================
 
     function createFavorites()

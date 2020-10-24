@@ -13,6 +13,7 @@ $database = new CafeDB();
 $db = $database->getConnection();
 $user = new Users($db);
 $userData = json_decode(file_get_contents("php://input"));
+$pdo = $database->conn;
 
 
 if (
@@ -34,7 +35,7 @@ if (
 
     if ($user->createOrder()) {
         http_response_code(201);
-        echo json_encode(array("message" => "order was created successfully"));
+        echo json_encode(array("message" => "order was created successfully","id" => $pdo->lastInsertId()));
     } else {
         http_response_code(404);
         echo json_encode(array("message" => "an error encountered when creating the order"));
