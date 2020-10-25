@@ -22,10 +22,10 @@ if (
     !empty($userData->reservationCost) &&
     !empty($userData->reservations) &&
     !empty($userData->totalOrder)&&
-    !empty($userData->phoneNUmber)
+    !empty($userData->phoneNumber)
 
 ) {
-    $user->user_mobile = $userData->phoneNUmber;
+    $user->user_mobile = $userData->phoneNumber;
     $user->payMode = $userData->paymentMode;
     $user->foodTotal = $userData->foodTotal;
     $user->reservationCost = $userData->reservationCost;

@@ -355,6 +355,20 @@ class Users
 
         return false;
     }
+    
+    function deleteAllFoodBooking()
+    {
+        $query = "DELETE FROM " . $this->foodBookingTable . " WHERE userMobile = ?";
+        $stmt = $this->conn->prepare($query);
+        $this->user_mobile = htmlspecialchars(strip_tags($this->user_mobile));
+
+        $stmt->bindParam(1, $this->user_mobile);
+        if ($stmt->execute()) {
+            return true;
+        }
+
+        return false;
+    }
     //=========================================COMPLETED FOOD BOOKING=================================
     function createCompletedFood()
     {
@@ -393,7 +407,7 @@ class Users
     {
         $query = "SELECT * FROM " . $this->completedFoodBooking . " WHERE id = :id";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':id', $this->user_mobile);
+        $stmt->bindParam(':id', $this->user_id);
         $stmt->execute();
         return $stmt;
     }
