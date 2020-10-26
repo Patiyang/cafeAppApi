@@ -9,6 +9,8 @@ class Users
     private $orderTable = 'orders';
     private $completedFoodBooking = 'completedFoods';
     private $foodReviewTable = 'foodReviews';
+    private $placeReviewTable = 'placeReviews';
+
 
     public $user_id;
     public $user_name;
@@ -24,6 +26,8 @@ class Users
     public $cvc;
     public $card_expiry;
     public $profilePicture;
+    public $review;
+    public $rating;
 
     //creating booking variables
     public $booking_id;
@@ -278,8 +282,8 @@ class Users
 
         return false;
     }
-  
-    
+
+
     //=========================================COMPLETED FOOD BOOKINGS===========================================
 
     function createFoodBooking()
@@ -313,8 +317,8 @@ class Users
         }
         return false;
     }
-    
-     function readFoodBookings()
+
+    function readFoodBookings()
     {
         $query = "SELECT * FROM " . $this->foodBookingTable . " WHERE userMobile = :user_mobile";
         $stmt = $this->conn->prepare($query);
@@ -356,7 +360,7 @@ class Users
 
         return false;
     }
-    
+
     function deleteAllFoodBooking()
     {
         $query = "DELETE FROM " . $this->foodBookingTable . " WHERE userMobile = ?";
@@ -403,8 +407,8 @@ class Users
         }
         return false;
     }
-    
-     function readCompletedFoods()
+
+    function readCompletedFoods()
     {
         $query = "SELECT * FROM " . $this->completedFoodBooking . " WHERE id = :id";
         $stmt = $this->conn->prepare($query);
@@ -529,32 +533,73 @@ class Users
 
         $query = "INSERT INTO " . $this->foodReviewTable . " 
                     SET 
-                    user_mobile = :user_mobile, total = :total, status = :status, foodTotal = :foodTotal, reservationCost = :reservationCost, reservations = :reservations, payMode = :payMode, placeName = :placeName";
+                    user_name = :user_name, user_mobile = :user_mobile, review = :review, rating = :rating, user_img = :user_img, food_name = :food_name";
 
         $stmt = $this->conn->prepare($query);
+
+        $this->user_name = htmlspecialchars(strip_tags($this->user_name));
         $this->user_mobile = htmlspecialchars(strip_tags($this->user_mobile));
-        $this->totalOrder = htmlspecialchars(strip_tags($this->totalOrder));
-        $this->orderStatus = htmlspecialchars(strip_tags($this->orderStatus));
-        $this->foodTotal = htmlspecialchars(strip_tags($this->foodTotal));
-        $this->reservationCost = htmlspecialchars(strip_tags($this->reservationCost));
-        $this->reservations = htmlspecialchars(strip_tags($this->reservations));
-        $this->payMode = htmlspecialchars(strip_tags($this->payMode));
-        $this->place_name = htmlspecialchars(strip_tags($this->place_name));
+        $this->review = htmlspecialchars(strip_tags($this->review));
+        $this->rating = htmlspecialchars(strip_tags($this->rating));
+        $this->profilePicture = htmlspecialchars(strip_tags($this->profilePicture));
+        $this->food_name = htmlspecialchars(strip_tags($this->food_name));
 
 
+        $stmt->bindParam(':user_name', $this->user_name);
         $stmt->bindParam(':user_mobile', $this->user_mobile);
-        $stmt->bindParam(':total', $this->totalOrder);
-        $stmt->bindParam(':status', $this->orderStatus);
-        $stmt->bindParam(':foodTotal', $this->foodTotal);
-        $stmt->bindParam(':reservationCost', $this->reservationCost);
-        $stmt->bindParam(':reservations', $this->reservations);
-        $stmt->bindParam(':payMode', $this->payMode);
-        $stmt->bindParam(':placeName', $this->place_name);
+        $stmt->bindParam(':review', $this->review);
+        $stmt->bindParam(':rating', $this->rating);
+        $stmt->bindParam(':user_img', $this->profilePicture);
+        $stmt->bindParam(':food_name', $this->food_name);
 
         if ($stmt->execute()) {
             return true;
         }
         return false;
     }
+    function readFoodReviews()
+    {
+        $query = "SELECT * FROM " . $this->foodReviewTable . " WHERE user_mobile = :user_mobile";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':user_mobile', $this->user_mobile);
+        $stmt->execute();
+        return $stmt;
+    }
+    function createPlaceReview()
+    {
 
+        $query = "INSERT INTO " . $this->placeReviewTable . " 
+                    SET 
+                    user_name = :user_name, user_mobile = :user_mobile, review = :review, rating = :rating, user_img = :user_img, place_name = :place_name";
+
+        $stmt = $this->conn->prepare($query);
+
+        $this->user_name = htmlspecialchars(strip_tags($this->user_name));
+        $this->user_mobile = htmlspecialchars(strip_tags($this->user_mobile));
+        $this->review = htmlspecialchars(strip_tags($this->review));
+        $this->rating = htmlspecialchars(strip_tags($this->rating));
+        $this->profilePicture = htmlspecialchars(strip_tags($this->profilePicture));
+        $this->place_name = htmlspecialchars(strip_tags($this->place_name));
+
+
+        $stmt->bindParam(':user_name', $this->user_name);
+        $stmt->bindParam(':user_mobile', $this->user_mobile);
+        $stmt->bindParam(':review', $this->review);
+        $stmt->bindParam(':rating', $this->rating);
+        $stmt->bindParam(':user_img', $this->profilePicture);
+        $stmt->bindParam(':place_name', $this->place_name);
+
+        if ($stmt->execute()) {
+            return true;
+        }
+        return false;
+    }
+    function readPlaceReviews()
+    {
+        $query = "SELECT * FROM " . $this->placeReviewTable . " WHERE user_mobile = :user_mobile";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':user_mobile', $this->user_mobile);
+        $stmt->execute();
+        return $stmt;
+    }
 }
