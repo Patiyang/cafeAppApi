@@ -59,6 +59,7 @@ class CafeOwner
     public $food_name;
     public $food_description;
     public $featured_food;
+    public $type;
     
 
 
@@ -136,6 +137,15 @@ class CafeOwner
         $query = "SELECT * FROM " . $this->placeMenu . " WHERE owner_mob = :owner_mob";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':owner_mob', $this->owner_mob);
+        $stmt->execute();
+        return $stmt;
+    }
+    function readPlaceMenuTypes()
+    {
+        $query = "SELECT * FROM " . $this->placeMenu . " WHERE owner_mob = :owner_mob AND type = :type";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':owner_mob', $this->owner_mob);
+        $stmt->bindParam(':type', $this->type);
         $stmt->execute();
         return $stmt;
     }

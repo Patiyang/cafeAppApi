@@ -8,6 +8,7 @@ class Users
     private $foodBookingTable = 'foodBooking';
     private $orderTable = 'orders';
     private $completedFoodBooking = 'completedFoods';
+    private $foodReviewTable = 'foodReviews';
 
     public $user_id;
     public $user_name;
@@ -470,7 +471,7 @@ class Users
 
         $query = "INSERT INTO " . $this->orderTable . " 
                     SET 
-                    user_mobile = :user_mobile, total = :total, status = :status, foodTotal = :foodTotal, reservationCost = :reservationCost, reservations = :reservations, payMode = :payMode";
+                    user_mobile = :user_mobile, total = :total, status = :status, foodTotal = :foodTotal, reservationCost = :reservationCost, reservations = :reservations, payMode = :payMode, placeName = :placeName";
 
         $stmt = $this->conn->prepare($query);
         $this->user_mobile = htmlspecialchars(strip_tags($this->user_mobile));
@@ -480,6 +481,8 @@ class Users
         $this->reservationCost = htmlspecialchars(strip_tags($this->reservationCost));
         $this->reservations = htmlspecialchars(strip_tags($this->reservations));
         $this->payMode = htmlspecialchars(strip_tags($this->payMode));
+        $this->place_name = htmlspecialchars(strip_tags($this->place_name));
+
 
         $stmt->bindParam(':user_mobile', $this->user_mobile);
         $stmt->bindParam(':total', $this->totalOrder);
@@ -488,6 +491,7 @@ class Users
         $stmt->bindParam(':reservationCost', $this->reservationCost);
         $stmt->bindParam(':reservations', $this->reservations);
         $stmt->bindParam(':payMode', $this->payMode);
+        $stmt->bindParam(':placeName', $this->place_name);
 
         if ($stmt->execute()) {
             return true;
@@ -518,4 +522,39 @@ class Users
         }
         return false;
     }
+
+    // =============================================USER REVIEWS=======================================
+    function createFoodReview()
+    {
+
+        $query = "INSERT INTO " . $this->foodReviewTable . " 
+                    SET 
+                    user_mobile = :user_mobile, total = :total, status = :status, foodTotal = :foodTotal, reservationCost = :reservationCost, reservations = :reservations, payMode = :payMode, placeName = :placeName";
+
+        $stmt = $this->conn->prepare($query);
+        $this->user_mobile = htmlspecialchars(strip_tags($this->user_mobile));
+        $this->totalOrder = htmlspecialchars(strip_tags($this->totalOrder));
+        $this->orderStatus = htmlspecialchars(strip_tags($this->orderStatus));
+        $this->foodTotal = htmlspecialchars(strip_tags($this->foodTotal));
+        $this->reservationCost = htmlspecialchars(strip_tags($this->reservationCost));
+        $this->reservations = htmlspecialchars(strip_tags($this->reservations));
+        $this->payMode = htmlspecialchars(strip_tags($this->payMode));
+        $this->place_name = htmlspecialchars(strip_tags($this->place_name));
+
+
+        $stmt->bindParam(':user_mobile', $this->user_mobile);
+        $stmt->bindParam(':total', $this->totalOrder);
+        $stmt->bindParam(':status', $this->orderStatus);
+        $stmt->bindParam(':foodTotal', $this->foodTotal);
+        $stmt->bindParam(':reservationCost', $this->reservationCost);
+        $stmt->bindParam(':reservations', $this->reservations);
+        $stmt->bindParam(':payMode', $this->payMode);
+        $stmt->bindParam(':placeName', $this->place_name);
+
+        if ($stmt->execute()) {
+            return true;
+        }
+        return false;
+    }
+
 }

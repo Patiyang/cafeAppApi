@@ -32,7 +32,8 @@ if ($num > 0) {
             "reservations" => $reservations,
             "totalOrder" => $total,
             "orderStatus"=>$status,
-            "dateCreated"=>$dateCreated
+            "dateCreated"=>$dateCreated,
+            "placeName"=>$placeName
         );
         array_push($details_arr['orders'], $details_item);
     }

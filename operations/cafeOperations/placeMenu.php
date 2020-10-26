@@ -33,7 +33,8 @@ if ($num > 0) {
             "featured" => $featured, 
             "price"=>$price,
             "type"=>$type,
-            "ingredients"=>$ingredients
+            "ingredients"=>$ingredients,
+            "quantityAvailable"=>$quantityAvailable
         );
 
         array_push($details_arr['menuItems'], $details_item);
