@@ -33,7 +33,8 @@ if ($num > 0) {
             "totalOrder" => $total,
             "orderStatus"=>$status,
             "dateCreated"=>$dateCreated,
-            "placeName"=>$placeName
+            "placeName"=>$placeName,
+            "placeImage"=>$placeImage
         );
         array_push($details_arr['orders'], $details_item);
     }

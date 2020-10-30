@@ -18,12 +18,13 @@ $userData = json_decode(file_get_contents("php://input"));
 if (
     !empty($userData->userName) &&
     !empty($userData->phoneNumber) &&
-    !empty($userData->review) &&
+    // !empty($userData->review) &&
     !empty($userData->rating) &&
     !empty($userData->profileImage) &&
     !empty($userData->placeName)
 ) {
     $user->user_name = $userData->userName;
+    $user->user_about = $userData->about;
     $user->user_mobile = $userData->phoneNumber;
     $user->review = $userData->review;
     $user->rating = $userData->rating;

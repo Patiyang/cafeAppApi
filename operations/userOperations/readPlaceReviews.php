@@ -10,7 +10,7 @@ $database = new CafeDB();
 $db = $database->getConnection();
 
 $details = new Users($db);
-$details->user_mobile = isset($_GET['user_mobile']) ? $_GET['user_mobile'] : die();
+$details->place_name = isset($_GET['place_name']) ? $_GET['place_name'] : die();
 // query users
 $stmt = $details->readPlaceReviews();
 $num = $stmt->rowCount();
@@ -26,6 +26,7 @@ if ($num > 0) {
         $details_item = array(
             "id"=>$id,
             "userName"=>$user_name,
+            "about"=>$user_about,
             "phoneNumber" => $user_mobile,
             "review" => $review,
             "rating" => $rating,

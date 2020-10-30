@@ -33,6 +33,7 @@ if (
     $user->totalOrder = $userData->totalOrder;
     $user->orderStatus = $userData->orderStatus;
     $user->place_name = $userData->placeName;
+    $user->booking_image = $userData->placeImage;
 
     if ($user->createOrder()) {
         http_response_code(201);

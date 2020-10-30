@@ -8,6 +8,10 @@ class CafeOwner
     private $tableName = 'placeDetails';
     private $imagesTable = 'image_list';
     private $placeMenu = 'placeMenu';
+    private $reviewsTable = 'placeReviews';
+    private $foodReviewsTable = 'foodReviews';
+    private $foodNutrition = 'nutrition';
+
     //geting the details of a single cafe
     public $cafe_id;
     public $owner_name;
@@ -72,6 +76,27 @@ class CafeOwner
     function read()
     {
         $query = "SELECT * FROM " . $this->tableName;
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
+    function readFoodNutrition()
+    {
+        $query = "SELECT * FROM " . $this->foodNutrition. " WHERE restaurant = :cafe_name AND food = :food_name";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':cafe_name', $this->cafe_name);
+        $stmt->bindParam(':food_name', $this->food_name);
+        $stmt->execute();
+        return $stmt;
+    }
+    function readReviews(){
+         $query = "SELECT * FROM " . $this->reviewsTable . " ORDER BY id DESC";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
+    function readFoodReviews(){
+         $query = "SELECT * FROM " . $this->foodReviewsTable . " ORDER BY id DESC";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         return $stmt;

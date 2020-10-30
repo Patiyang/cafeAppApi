@@ -28,7 +28,6 @@ $user->user_email = $data->email;
 $user->card_number = $data->cardNumber;
 $user->card_expiry = $data->cardExpiry;
 $user->cvc = $data->cvc;
-$user->profilePicture = $data->image;
 
 // update the product
 if ($user->updateUser()) {
