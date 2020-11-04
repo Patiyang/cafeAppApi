@@ -25,9 +25,9 @@ $user->user_name = $data->name;
 $user->user_address = $data->address;
 $user->user_about = $data->about;
 $user->user_email = $data->email;
-$user->card_number = $data->cardNumber;
-$user->card_expiry = $data->cardExpiry;
-$user->cvc = $data->cvc;
+// $user->card_number = $data->cardNumber;
+// $user->card_expiry = $data->cardExpiry;
+// $user->cvc = $data->cvc;
 
 // update the product
 if ($user->updateUser()) {

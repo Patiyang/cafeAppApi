@@ -22,17 +22,17 @@ if (
     // !empty($userData->password) &&
     !empty($userData->phone)
 ) {
-    $user->user_name = "";
+    // $user->user_name = "";
     $user->password = "";
-    $user->user_email = "";
+    // $user->user_email = "";
     $user->user_mobile = $userData->phone;
     $user->user_address = "";
     $user->user_img = "";
     $user->user_status = "0";
     $user->user_about = "";
-    $user->card_number = "";
-    $user->card_expiry = "";
-    $user->cvc = "";
+    // $user->card_number = "";
+    // $user->card_expiry = "";
+    // $user->cvc = "";
 
     if ($user->createUser()) {
         http_response_code(201);

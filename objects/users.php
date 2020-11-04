@@ -103,7 +103,7 @@ class Users
 
         $query = "INSERT INTO " . $this->tableName . " 
                     SET 
-                    user_name = :user_name, user_mobile = :user_mobile, user_email = :user_email, user_address = :user_address, user_img = :user_img, user_status = :user_status, password = :password, user_about = :user_about, card_number = :card_number, card_expiry = :card_expiry, cvc = :cvc";
+                    user_mobile = :user_mobile, user_address = :user_address, user_img = :user_img, user_status = :user_status, password = :password, user_about = :user_about";
 
         $stmt = $this->conn->prepare($query);
 
@@ -115,21 +115,20 @@ class Users
         $this->user_status = htmlspecialchars(strip_tags($this->user_status));
         $this->password = htmlspecialchars(strip_tags($this->password));
         $this->user_about = htmlspecialchars(strip_tags($this->user_about));
-        $this->card_number = htmlspecialchars(strip_tags($this->card_number));
-        $this->card_expiry = htmlspecialchars(strip_tags($this->card_expiry));
-        $this->cvc = htmlspecialchars(strip_tags($this->cvc));
+        // $this->card_number = htmlspecialchars(strip_tags($this->card_number));
+        // $this->card_expiry = htmlspecialchars(strip_tags($this->card_expiry));
+        // $this->cvc = htmlspecialchars(strip_tags($this->cvc));
 
-
-        $stmt->bindParam(':user_name', $this->user_name);
         $stmt->bindParam(':user_mobile', $this->user_mobile);
-        $stmt->bindParam(':user_email', $this->user_email);
+        // $stmt->bindParam(':user_email', $this->user_email);
+        // $stmt->bindParam(':user_name', $this->user_name);
         $stmt->bindParam(':user_address', $this->user_address);
         $stmt->bindParam(':user_img', $this->user_img);
         $stmt->bindParam(':user_status', $this->user_status);
         $stmt->bindParam(':user_about', $this->user_about);
-        $stmt->bindParam(':card_number', $this->card_number);
-        $stmt->bindParam(':card_expiry', $this->card_expiry);
-        $stmt->bindParam(':cvc', $this->cvc);
+        // $stmt->bindParam(':card_number', $this->card_number);
+        // $stmt->bindParam(':card_expiry', $this->card_expiry);
+        // $stmt->bindParam(':cvc', $this->cvc);
         $password_hash = password_hash($this->password, PASSWORD_BCRYPT);
         $stmt->bindParam(':password', $password_hash);
 
@@ -144,7 +143,7 @@ class Users
     {
         $query = "UPDATE
                     " . $this->tableName . "
-                SET user_name = :user_name, user_address = :user_address, user_email = :user_email, user_about = :user_about, card_number = :card_number, card_expiry = :card_expiry, cvc = :cvc WHERE user_mobile = :user_mobile";
+                SET user_name = :user_name, user_address = :user_address, user_email = :user_email, user_about = :user_about WHERE user_mobile = :user_mobile";
         $stmt = $this->conn->prepare($query);
         // sanitize the data
         $this->user_mobile = htmlspecialchars(strip_tags($this->user_mobile));
@@ -152,9 +151,9 @@ class Users
         $this->user_address = htmlspecialchars(strip_tags($this->user_address));
         $this->user_email = htmlspecialchars(strip_tags($this->user_email));
         $this->user_about = htmlspecialchars(strip_tags($this->user_about));
-        $this->card_number = htmlspecialchars(strip_tags($this->card_number));
-        $this->card_expiry = htmlspecialchars(strip_tags($this->card_expiry));
-        $this->cvc = htmlspecialchars(strip_tags($this->cvc));
+        // $this->card_number = htmlspecialchars(strip_tags($this->card_number));
+        // $this->card_expiry = htmlspecialchars(strip_tags($this->card_expiry));
+        // $this->cvc = htmlspecialchars(strip_tags($this->cvc));
 
         // new user values go here
         $stmt->bindParam(':user_mobile', $this->user_mobile);
@@ -162,9 +161,9 @@ class Users
         $stmt->bindParam(':user_address', $this->user_address);
         $stmt->bindParam(':user_email', $this->user_email);
         $stmt->bindParam(':user_about', $this->user_about);
-        $stmt->bindParam(':card_number', $this->card_number);
-        $stmt->bindParam(':card_expiry', $this->card_expiry);
-        $stmt->bindParam(':cvc', $this->cvc);
+        // $stmt->bindParam(':card_number', $this->card_number);
+        // $stmt->bindParam(':card_expiry', $this->card_expiry);
+        // $stmt->bindParam(':cvc', $this->cvc);
 
         if ($stmt->execute()) {
             return true;
@@ -291,8 +290,8 @@ class Users
 
         return false;
     }
-  
-    
+
+
     //=========================================COMPLETED FOOD BOOKINGS===========================================
 
     function createFoodBooking()
@@ -326,8 +325,8 @@ class Users
         }
         return false;
     }
-    
-     function readFoodBookings()
+
+    function readFoodBookings()
     {
         $query = "SELECT * FROM " . $this->foodBookingTable . " WHERE userMobile = :user_mobile";
         $stmt = $this->conn->prepare($query);
@@ -369,7 +368,7 @@ class Users
 
         return false;
     }
-    
+
     function deleteAllFoodBooking()
     {
         $query = "DELETE FROM " . $this->foodBookingTable . " WHERE userMobile = ?";
@@ -416,8 +415,8 @@ class Users
         }
         return false;
     }
-    
-     function readCompletedFoods()
+
+    function readCompletedFoods()
     {
         $query = "SELECT * FROM " . $this->completedFoodBooking . " WHERE id = :id";
         $stmt = $this->conn->prepare($query);
@@ -538,7 +537,7 @@ class Users
         }
         return false;
     }
-      // =============================================USER REVIEWS=======================================
+    // =============================================USER REVIEWS=======================================
     function createFoodReview()
     {
 
